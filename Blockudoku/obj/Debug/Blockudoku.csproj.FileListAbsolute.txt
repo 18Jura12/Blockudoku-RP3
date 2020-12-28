@@ -1,0 +1,8 @@
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku\Blockudoku\bin\Debug\Blockudoku.exe.config
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku\Blockudoku\bin\Debug\Blockudoku.exe
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku\Blockudoku\bin\Debug\Blockudoku.pdb
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku\Blockudoku\obj\Debug\Blockudoku.Properties.Resources.resources
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku\Blockudoku\obj\Debug\Blockudoku.csproj.GenerateResource.cache
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku\Blockudoku\obj\Debug\Blockudoku.csproj.CoreCompileInputs.cache
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku\Blockudoku\obj\Debug\Blockudoku.exe
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku\Blockudoku\obj\Debug\Blockudoku.pdb
