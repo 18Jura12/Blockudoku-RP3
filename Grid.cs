@@ -35,12 +35,14 @@ namespace Blockudoku
             grafika.Clear(Color.White);
             grafika.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
+            int startX = (sirina - velicinaBloka * 9) / 2;
+            int startY = (visina - velicinaBloka * 9) / 5;
+
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
                 {
-                    int velicina = Convert.ToInt32(Math.Min(sirina, visina) * 2 / 27);
-                    grafika.DrawRectangle(Pens.DarkBlue, i * velicina + 5, j * velicina + 5, velicina, velicina);
+                    grafika.DrawRectangle(Pens.DarkBlue, i * velicinaBloka + startX, j * velicinaBloka + startY, velicinaBloka, velicinaBloka);
                     //grafika.DrawRectangle(Pens.DarkBlue, i * velicinaBloka + 5, j * velicinaBloka + 5, velicinaBloka, velicinaBloka);
                 }
             }
@@ -60,16 +62,34 @@ namespace Blockudoku
             {
                 return velicinaBloka;
             }
+            set
+            {
+                velicinaBloka = value;
+            }
         }
 
         public int Sirina
         {
-            get;
+            get
+            {
+                return sirina;
+            }
+            set
+            {
+                sirina = value;
+            }
         }
 
         public int Visina
         {
-            get;
+            get
+            {
+                return visina;
+            }
+            set
+            {
+                visina = value;
+            }
         }
 
         public int Rezultat

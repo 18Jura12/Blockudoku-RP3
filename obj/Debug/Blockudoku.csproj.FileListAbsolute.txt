@@ -12,3 +12,17 @@ C:\Users\JUTEO\source\repos\pravi\Blockudoku\obj\Debug\Blockudoku.pdb
 C:\Users\JUTEO\source\repos\pravi\Blockudoku\obj\Debug\Blockudoku.MainMenuStateForm.resources
 C:\Users\JUTEO\source\repos\pravi\Blockudoku\obj\Debug\Blockudoku.OptionsStateForm.resources
 C:\Users\JUTEO\source\repos\pravi\Blockudoku\obj\Debug\Blockudoku.PlayStateForm.resources
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\bin\Debug\Blockudoku.exe.config
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\bin\Debug\Blockudoku.exe
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\bin\Debug\Blockudoku.pdb
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.csprojAssemblyReference.cache
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.MainMenuStateForm.resources
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.MdiContainer.resources
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.OptionsStateForm.resources
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.PlayStateForm.resources
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.Properties.Resources.resources
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.StateForm.resources
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.csproj.GenerateResource.cache
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.csproj.CoreCompileInputs.cache
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.exe
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.pdb

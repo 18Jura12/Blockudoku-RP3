@@ -17,7 +17,7 @@ namespace Blockudoku
         //trenutna pozicija
         int x;
         int y;
-        //pocetna pozcija
+        //pocetna pozicija za crtanje 5x5 mreze
         int startX;
         int startY;
         //ako jos nije stavljen na plocu je true, inace false OKRENI!!!!
@@ -37,43 +37,54 @@ namespace Blockudoku
             this.sadrzaj = new bool[5, 5];
         }
 
-        public void crtaj(Graphics grafika, int sirina, int visina)
+        public void crtaj(Graphics grafika, int startX, int startY, int size)
         {
-            //int nXs = X;
-            //int nYs = Y;
-            //int nY = nYs;
             SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.DarkBlue);
-            int velicina = Convert.ToInt32(Math.Min(sirina, visina) * 2 / 36);
-            int pocetakSirina = Convert.ToInt32(sirina * 3 / 5);
-            int pocetakVisina = Convert.ToInt32(visina * 3 / 5);
-            Console.WriteLine("sirina: " + sirina.ToString());
-            Console.WriteLine("visina: " + visina.ToString());
-            Console.WriteLine("pocetakSirina: " + pocetakSirina.ToString());
-            Console.WriteLine("pocetakVisina: " + pocetakVisina.ToString());
-            Console.WriteLine("velicina: " + velicina.ToString());
-            //int a = Convert.ToInt32(startX/pocetakSirina*startX)
+
             for (int i = 0; i < sadrzaj.GetLength(0); i++)
             {
-                //int nX = nXs;
                 for (int j = 0; j < sadrzaj.GetLength(1); j++)
                 {
-
                     if (sadrzaj[i, j])
                     {
-                        int a = Convert.ToInt32(startX / pocetakSirina * startX);
-                        int b = Convert.ToInt32(startY / pocetakVisina * startY);
-                        Rectangle rect = new Rectangle(i * velicina + startX, j * velicina + startY, velicina, velicina);
-                        //Rectangle rect = new Rectangle(i * velicina + pocetakSirina, j * velicina + pocetakVisina, velicina, velicina);
-                        //Rectangle rect = new Rectangle(i * velicina + a, j * velicina + b, velicina, velicina);
+                        Rectangle rect = new Rectangle(i * size + startX, j * size + startY, size, size);
 
-                        //grafika.DrawRectangle(Pens.DarkBlue, i * blockSize + startX, j * blockSize + startY, blockSize, blockSize);
                         grafika.FillRectangle(myBrush, rect);
                         grafika.DrawRectangle(Pens.AntiqueWhite, rect);
                     }
-                    //nX = nX + 42;
+                    else
+                    {
+                        Rectangle rect = new Rectangle(i * size + startX, j * size + startY, size, size);
+                        grafika.DrawRectangle(Pens.AntiqueWhite, rect);
+                    }
                 }
-                //nY = nY + 42;
             }
+        }
+
+        // checks if koordinates (x,y) are on item; PROVJERI DAL RADI!!
+        public bool onItem( int x, int y)
+        {
+            //Console.WriteLine("x: " + x.ToString());
+            //Console.WriteLine("y:" + y.ToString());
+
+            for (int i = 0; i < sadrzaj.GetLength(0) ; i++)
+            {
+                for (int j = 0; j < sadrzaj.GetLength(1); j++)
+                {
+                    if (sadrzaj[i, j])
+                    {
+                        //Console.WriteLine("startX: " + (startX + i * blockSize).ToString() + " -- " + (startX + (i+1) * blockSize).ToString());
+                        //Console.WriteLine("startY:" + (startY + j * blockSize).ToString() + " -- " + (startY + (j+1) * blockSize).ToString());
+                        //Console.WriteLine("blockSize: " + blockSize.ToString());
+                        if (x >= (startX + i * blockSize) && x <= (startX + (i + 1) * blockSize) && y >= (startY + j * blockSize) && y <= (startY + (j + 1) * blockSize))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
 
         public bool Stavljen
@@ -81,6 +92,42 @@ namespace Blockudoku
             get
             {
                 return stavljen;
+            }
+        }
+
+        public int BlockSize
+        {
+            get
+            {
+                return blockSize;
+            }
+            set
+            {
+                blockSize = value;
+            }
+        }
+
+        public int StartX
+        {
+            get
+            {
+                return startX;
+            }
+            set
+            {
+                startX = value;
+            }
+        }
+
+        public int StartY
+        {
+            get
+            {
+                return startY;
+            }
+            set
+            {
+                startY = value;
             }
         }
     }
