@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
 
 namespace Blockudoku
 {
     abstract class Mino
     {
+
         //sadrzaj objekta, svi su smjesetni u matrici 5x5, na onim mjestim na kojim se nalazi blok je true
         public bool[,] sadrzaj;
         //velicina bloka
@@ -57,7 +58,7 @@ namespace Blockudoku
                 for (int j = 0; j < sadrzaj.GetLength(1); j++)
                 {
 
-                    if (sadrzaj[i,j])
+                    if (sadrzaj[i, j])
                     {
                         int a = Convert.ToInt32(startX / pocetakSirina * startX);
                         int b = Convert.ToInt32(startY / pocetakVisina * startY);
@@ -82,10 +83,5 @@ namespace Blockudoku
                 return stavljen;
             }
         }
-
-        
-
     }
-
-    
 }

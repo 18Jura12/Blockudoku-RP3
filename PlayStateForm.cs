@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Blockudoku.Minos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,54 +11,41 @@ using System.Windows.Forms;
 
 namespace Blockudoku
 {
-    public partial class Form1 : Form
+    public partial class PlayStateForm : StateForm
     {
-        int state;
         List<Mino> minos;
-        
 
-        public Form1()
+        public PlayStateForm()
         {
             InitializeComponent();
-            Size = new Size(750, 700);
-            int state = 0;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            state = 1;
             minos = makeMinos();
         }
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
+        private void PlayStateForm_Paint(object sender, PaintEventArgs e)
         {
-            if( state == 1 )
-            {
-                button1.Dispose();
-                Graphics grafika = CreateGraphics();
-                Grid net = new Grid();
-                SuspendLayout();
-                net.crtajPlocu(grafika, this.Size.Width, this.Size.Height);
+            Graphics grafika = CreateGraphics();
+            Grid net = new Grid();
+            SuspendLayout();
+            net.crtajPlocu(grafika, this.Size.Width, this.Size.Height);
 
-                if(minos == null)
+            if (minos == null)
+            {
+                MessageBox.Show("null vrijednost");
+            }
+            else
+            {
+                //MessageBox.Show(minos[2].Stavljen.ToString());
+                if (!minos[0].Stavljen && !minos[1].Stavljen && !minos[2].Stavljen)
                 {
-                    MessageBox.Show("null vrijednost");
-                } else
-                {
-                    //MessageBox.Show(minos[2].Stavljen.ToString());
-                    if (!minos[0].Stavljen && !minos[1].Stavljen && !minos[2].Stavljen)
-                    {
-                        minos = makeMinos();
-                    }
-                   // MessageBox.Show(minos[0].GetType().ToString()+ minos[1].GetType().ToString()+ minos[2].GetType().ToString());
-                    minos[0].crtaj(grafika, this.Size.Width, this.Size.Height);
-                    minos[1].crtaj(grafika, this.Size.Width, this.Size.Height);
-                    minos[2].crtaj(grafika, this.Size.Width, this.Size.Height);
+                    minos = makeMinos();
                 }
-                
-                ResumeLayout();
+                // MessageBox.Show(minos[0].GetType().ToString()+ minos[1].GetType().ToString()+ minos[2].GetType().ToString());
+                minos[0].crtaj(grafika, this.Size.Width, this.Size.Height);
+                minos[1].crtaj(grafika, this.Size.Width, this.Size.Height);
+                minos[2].crtaj(grafika, this.Size.Width, this.Size.Height);
             }
 
+            ResumeLayout();
         }
 
         List<Mino> makeMinos()
@@ -70,8 +58,8 @@ namespace Blockudoku
             for (int i = 0; i < 3; i++)
             {
                 //minos.Add(new Mono(45, 500, i*150));
-                
-                int randNum = rand.Next(0,4);
+
+                int randNum = rand.Next(0, 4);
                 //MessageBox.Show(randNum.ToString());
 
                 switch (randNum)
@@ -126,7 +114,7 @@ namespace Blockudoku
                         }
                         break;
                 }
-                
+
             }
 
             return minos;

@@ -8,6 +8,8 @@ namespace Blockudoku
 {
     static class Program
     {
+        public static MdiContainer container;
+        public static StateManager stateManager;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -16,7 +18,11 @@ namespace Blockudoku
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            container = new MdiContainer();
+            stateManager = new StateManager(new MainMenuStateForm());
+
+            Application.Run(container);
         }
     }
 }
