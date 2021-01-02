@@ -15,19 +15,26 @@ namespace Blockudoku
     {
         List<Mino> minos;
         Grid net;
+        Mino selected;
+        int spaceX;
+        int spaceY;
 
         public PlayStateForm()
         {
             InitializeComponent();
             minos = makeMinos();
             net = new Grid();
+            selected = null;
+            //od klika za selected
+            spaceX = 0;
+            spaceY = 0;
         }
 
         List<Mino> makeMinos()
         {
             List<Mino> minos = new List<Mino>(3);
 
-            int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 20);
+            int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 16);
 
             Random rand = new Random();
             Random rand2 = new Random();
@@ -127,8 +134,8 @@ namespace Blockudoku
                     minos = makeMinos();
                 }
 
-                //smaller than original 15-->20
-                int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 20);
+                //smaller than original 15-->18
+                int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 16);
 
                 //int startY = (pictureBox_grid.Height - blockSize * 5) / 2;
 
@@ -161,8 +168,8 @@ namespace Blockudoku
             // mozda dodat još i mijenjanje startX i startY od svakog minos-a; PROVJERI!!
             if( minos != null )
             {
-                //smaller than original 15-->20
-                int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 20);
+                //smaller than original 15-->18
+                int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 16);
                 int startY = net.Visina + (pictureBox_grid.Height - blockSize * 9) / 5;
                 int startX = (pictureBox_grid.Width - blockSize * 15) / 2;
                 for ( int i = 0; i < minos.Count; ++i )
@@ -172,33 +179,151 @@ namespace Blockudoku
                         minos[i].BlockSize = blockSize;
                         minos[i].StartX = startX + i * 5 * blockSize;
                         minos[i].StartY = startY;
+                        minos[i].X = startX + i * 5 * blockSize;
+                        minos[i].Y = startY;
                     }
                 }
-            }
-            
+            } 
         }
 
         private void pictureBox_grid_MouseDown(object sender, MouseEventArgs e)
         {
+            /*
             if( e.Button == MouseButtons.Left)
             {
-                if(minos[0].onItem(e.Location.X, e.Location.Y))
+                //odabran je neki mino
+                if( selected != null )
                 {
-                    Console.WriteLine("LIJEVA TIPKA MISA.");
-                }
-
-                if (minos[1].onItem(e.Location.X, e.Location.Y))
+                    selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
+                } else
                 {
-                    Console.WriteLine("LIJEVA TIPKA MISA.");
+                     
+                    //još nije odabran oblik
+                    if (minos[0].onItem(e.Location.X, e.Location.Y) && minos[0].Stavljen )
+                    {
+                        selected = minos[0];
+                        spaceX = e.Location.X - minos[0].StartX;
+                        spaceY = e.Location.Y - minos[0].StartY;
+                        selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
+                        Console.WriteLine("LIJEVA TIPKA MISA.");
+                    }
+
+                    if (minos[1].onItem(e.Location.X, e.Location.Y) && minos[1].Stavljen )
+                    {
+                        selected = minos[1];
+                        spaceX = e.Location.X - minos[1].StartX;
+                        spaceY = e.Location.Y - minos[1].StartY;
+                        //selected.moveMino(e.Location.X, e.Location.Y);
+                        Console.WriteLine("LIJEVA TIPKA MISA.");
+                    }
+
+                    if (minos[2].onItem(e.Location.X, e.Location.Y) && minos[2].Stavljen )
+                    {
+                        selected = minos[2];
+                        spaceX = e.Location.X - minos[2].StartX;
+                        spaceY = e.Location.Y - minos[2].StartY;
+                        //selected.moveMino(e.Location.X, e.Location.Y);
+                        Console.WriteLine("LIJEVA TIPKA MISA.");
+                    }
                 }
-
-                if (minos[2].onItem(e.Location.X, e.Location.Y))
-                {
-                    Console.WriteLine("LIJEVA TIPKA MISA.");
-                }
-
-
+                
             }
+            */
+        }
+
+        private void pictureBox_grid_MouseUp(object sender, MouseEventArgs e)
+        {
+            //mis drzi neki mino
+            if( selected != null )
+            {
+                int startX = (pictureBox_grid.Width - net.VelicinaBloka * 9) / 2;
+                int startY = (pictureBox_grid.Height - net.VelicinaBloka * 9) / 5;
+                //provjera dal je unutar ploce
+                if ( e.Location.X >= startX && e.Location.X <= (startX + net.Sirina) && e.Location.Y >= startY && e.Location.Y <= (startY + net.Visina))
+                {
+                    checkPutOnBoard(e.Location.X, e.Location.Y);
+                    Console.WriteLine("unutar");
+                } else
+                {
+                    selected.resetPosition();
+                }
+            }
+            selected = null;
+            spaceX = 0;
+            spaceY = 0;
+        }
+
+        private void pictureBox_grid_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                
+                if (selected != null)
+                {
+                    selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
+                }
+                else
+                {
+
+                    //još nije odabran oblik
+                    if (minos[0].onItem(e.Location.X, e.Location.Y) && minos[0].Stavljen)
+                    {
+                        selected = minos[0];
+                        spaceX = e.Location.X - minos[0].StartX;
+                        spaceY = e.Location.Y - minos[0].StartY;
+                        selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
+                        //Console.WriteLine("LIJEVA TIPKA MISA.");
+                    }
+
+                    if (minos[1].onItem(e.Location.X, e.Location.Y) && minos[1].Stavljen)
+                    {
+                        selected = minos[1];
+                        spaceX = e.Location.X - minos[1].StartX;
+                        spaceY = e.Location.Y - minos[1].StartY;
+                        selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
+                        //Console.WriteLine("LIJEVA TIPKA MISA.");
+                    }
+
+                    if (minos[2].onItem(e.Location.X, e.Location.Y) && minos[2].Stavljen)
+                    {
+                        selected = minos[2];
+                        spaceX = e.Location.X - minos[2].StartX;
+                        spaceY = e.Location.Y - minos[2].StartY;
+                        selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
+                        //Console.WriteLine("LIJEVA TIPKA MISA.");
+                    }
+                }
+            }
+        }
+
+        private void pictureBox_grid_MouseClick(object sender, MouseEventArgs e)
+        {
+            spaceX = e.X;
+            spaceY = e.Y;
+        }
+
+        private void checkPutOnBoard( int clickX, int clickY)
+        {
+            //mino ispusten na tim retcima i stupcima
+            int row = (clickY - (pictureBox_grid.Height - net.Visina) / 5) / net.VelicinaBloka;
+            int col = (clickX - (pictureBox_grid.Width - net.Sirina) / 2) / net.VelicinaBloka;
+
+            for( int i = 0; i < selected.sadrzaj.GetLength(0); ++i )
+            {
+                for( int j = 0; j < selected.sadrzaj.GetLength(1); ++j )
+                {
+                    if( selected.sadrzaj[i,j] )
+                    {
+
+                    }
+                }
+            }
+
+            int rowS = (selected.Y - (pictureBox_grid.Height - net.Visina) / 5) / net.VelicinaBloka;
+            int colS = (selected.X - (pictureBox_grid.Width - net.Sirina) / 2) / net.VelicinaBloka;
+            Console.WriteLine("redak: " + rowS.ToString() + " ; stupac: " + colS.ToString());
+
+            
         }
 
         /*
@@ -219,7 +344,7 @@ namespace Blockudoku
                 {
                     minos = makeMinos();
                 }
-                
+
                 int blockSize;                
 
                 if (pictureBox_shapes.Width < pictureBox_shapes.Height)

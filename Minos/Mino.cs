@@ -47,21 +47,23 @@ namespace Blockudoku
                 {
                     if (sadrzaj[i, j])
                     {
-                        Rectangle rect = new Rectangle(i * size + startX, j * size + startY, size, size);
+                        //Rectangle rect = new Rectangle(i * size + startX, j * size + startY, size, size);
+                        Rectangle rect = new Rectangle(i * blockSize + x, j * blockSize + y, blockSize, blockSize);
 
                         grafika.FillRectangle(myBrush, rect);
                         grafika.DrawRectangle(Pens.AntiqueWhite, rect);
                     }
                     else
                     {
-                        Rectangle rect = new Rectangle(i * size + startX, j * size + startY, size, size);
+                        //Rectangle rect = new Rectangle(i * size + startX, j * size + startY, size, size);
+                        Rectangle rect = new Rectangle(i * blockSize + x, j * blockSize + y, blockSize, blockSize);
                         grafika.DrawRectangle(Pens.AntiqueWhite, rect);
                     }
                 }
             }
         }
 
-        // checks if koordinates (x,y) are on item; PROVJERI DAL RADI!!
+        // checks if koordinates (x,y) are on item; PROVJERI DAL RADI!!; radi
         public bool onItem( int x, int y)
         {
             //Console.WriteLine("x: " + x.ToString());
@@ -85,6 +87,31 @@ namespace Blockudoku
             }
 
             return false;
+        }
+
+        public void moveMino( int x, int y, int spaceX, int spaceY)
+        {
+            //Console.WriteLine("spaceX: " + spaceX.ToString() + " ; spaceY: " + spaceY.ToString());
+            /*
+            this.X = x - (oc * 42);
+            this.Y = y - (or * 42);
+            */
+            // MOZDA OBRNUTO COL I ROW
+            //this.x = x - (minrow * blockSize);
+            //this.y = y - (mincol * blockSize);
+
+            int moveX = x - spaceX;
+            int moveY = y - spaceY;
+            //Console.WriteLine("pomakX: " + moveX.ToString());
+
+            this.x = moveX;
+            this.y = moveY;
+        }
+
+        public void resetPosition()
+        {
+            this.x = this.StartX;
+            this.y = this.StartY;
         }
 
         public bool Stavljen
@@ -128,6 +155,30 @@ namespace Blockudoku
             set
             {
                 startY = value;
+            }
+        }
+
+        public int X
+        {
+            get
+            {
+                return x;
+            }
+            set
+            {
+                x = value;
+            }
+        }
+
+        public int Y
+        {
+            get
+            {
+                return y;
+            }
+            set
+            {
+                y = value;
             }
         }
     }
