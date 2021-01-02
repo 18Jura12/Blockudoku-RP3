@@ -26,3 +26,17 @@ D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\ob
 D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.csproj.CoreCompileInputs.cache
 D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.exe
 D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.pdb
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\bin\Debug\Blockudoku.exe.config
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\bin\Debug\Blockudoku.exe
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\bin\Debug\Blockudoku.pdb
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.csprojAssemblyReference.cache
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.MainMenuStateForm.resources
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.MdiContainer.resources
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.OptionsStateForm.resources
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.PlayStateForm.resources
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.Properties.Resources.resources
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.StateForm.resources
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.csproj.GenerateResource.cache
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.csproj.CoreCompileInputs.cache
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.exe
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.pdb

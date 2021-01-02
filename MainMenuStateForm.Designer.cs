@@ -148,7 +148,7 @@ namespace Blockudoku
             this.standard_game_button.Name = "standard_game_button";
             this.standard_game_button.Size = new System.Drawing.Size(180, 60);
             this.standard_game_button.TabIndex = 0;
-            this.standard_game_button.Text = "Standrad game";
+            this.standard_game_button.Text = "Standard game";
             this.standard_game_button.UseVisualStyleBackColor = true;
             this.standard_game_button.Click += new System.EventHandler(this.standard_game_button_Click);
             // 
