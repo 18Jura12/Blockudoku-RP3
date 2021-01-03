@@ -26,5 +26,15 @@ namespace Blockudoku
         {
             Program.stateManager.Transition(new PlayStateForm());
         }
+
+        private void rules_button_Click(object sender, EventArgs e)
+        {
+            Program.stateManager.Transition(new RulesStateForm());
+        }
+
+        private void top_scores_button_Click(object sender, EventArgs e)
+        {
+            Program.stateManager.Transition(new TopScoresStateForm());
+        }
     }
 }

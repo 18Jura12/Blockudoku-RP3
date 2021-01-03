@@ -40,3 +40,5 @@ C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.csproj
 C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.csproj.CoreCompileInputs.cache
 C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.exe
 C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.pdb
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.RulesStateForm.resources
+D:\Dokumenti\Desktop\Faks\5.godina\RP3\zavrsniProjekt\verzija2\Blockudoku-RP3\obj\Debug\Blockudoku.TopScoresStateForm.resources

@@ -76,6 +76,12 @@
     <Compile Include="PlayStateForm.Designer.cs">
       <DependentUpon>PlayStateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="RulesStateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RulesStateForm.Designer.cs">
+      <DependentUpon>RulesStateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="StateForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +91,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateManager.cs" />
+    <Compile Include="TopScoresStateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TopScoresStateForm.Designer.cs">
+      <DependentUpon>TopScoresStateForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainMenuStateForm.resx">
       <DependentUpon>MainMenuStateForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,8 +118,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RulesStateForm.resx">
+      <DependentUpon>RulesStateForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StateForm.resx">
       <DependentUpon>StateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TopScoresStateForm.resx">
+      <DependentUpon>TopScoresStateForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -121,6 +139,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="top10.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
