@@ -190,7 +190,7 @@ namespace Blockudoku
 
         public void clearRow(int i)
         {
-            for (int j = 0; j < ploca.GetLength(0); j++) if (ploca[i, j] > 0) ploca[i, j]--;
+            for (int j = 0; j < ploca.GetLength(0); j++) if (ploca[j, i] > 0) ploca[j, i]--;
         }
 
         public void clearColumn(int i)
