@@ -120,6 +120,10 @@ namespace Blockudoku
             {
                 return stavljen;
             }
+            set
+            {
+                stavljen = value;
+            }
         }
 
         public int BlockSize

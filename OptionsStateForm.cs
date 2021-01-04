@@ -49,10 +49,23 @@ namespace Blockudoku
             float kHeight = this.options_groupBox.Size.Height;
             this.options_groupBox.Size = new System.Drawing.Size(this.Size.Width *2/3, this.Size.Height *4/5);
             this.options_groupBox.Location = new Point((this.Size.Width - this.options_groupBox.Size.Width)/2, (this.Size.Height - this.options_groupBox.Size.Height) / 2);
-            
+            //treba namjestiti lokaciju komponenata groupBoxa!!
+
             kWidth = this.options_groupBox.Size.Width / kWidth;
             kHeight = this.options_groupBox.Size.Height / kHeight;
-            //this.options_groupBox.Font. *= Math.Min(kWidth, kHeight);
+
+            var newFont = new Font("Papyrus", kWidth * kHeight * this.options_groupBox.Font.Size, FontStyle.Bold);
+            this.options_groupBox.Font = newFont;
+            newFont = new Font("Papyrus", kWidth * kHeight * this.timed_checkBox.Font.Size, FontStyle.Bold);
+            this.timed_checkBox.Font = newFont;
+            newFont = new Font("Papyrus", kWidth * kHeight * this.obstacles_checkBox.Font.Size, FontStyle.Bold);
+            this.obstacles_checkBox.Font = newFont;
+            newFont = new Font("Papyrus", kWidth * kHeight * this.theme_label.Font.Size, FontStyle.Bold);
+            this.theme_label.Font = newFont;
+            newFont = new Font("Papyrus", kWidth * kHeight * this.theme_comboBox.Font.Size, FontStyle.Bold);
+            this.theme_comboBox.Font = newFont;
+            newFont = new Font("Papyrus", kWidth * kHeight * this.back_button.Font.Size, FontStyle.Bold);
+            this.back_button.Font = newFont;
 
         }
     }

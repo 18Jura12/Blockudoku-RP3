@@ -144,9 +144,9 @@ namespace Blockudoku
                 int startY = net.Visina + (pictureBox_grid.Height - blockSize * 9) / 5;
                 int startX = (pictureBox_grid.Width - blockSize * 15) / 2;
 
-                minos[0].crtaj(e.Graphics, startX, startY, blockSize);
-                minos[1].crtaj(e.Graphics, startX + 5 * blockSize, startY, blockSize);
-                minos[2].crtaj(e.Graphics, startX + 10 * blockSize, startY, blockSize);
+                if (minos[0].Stavljen) minos[0].crtaj(e.Graphics, startX, startY, blockSize);
+                if (minos[1].Stavljen) minos[1].crtaj(e.Graphics, startX + 5 * blockSize, startY, blockSize);
+                if (minos[2].Stavljen) minos[2].crtaj(e.Graphics, startX + 10 * blockSize, startY, blockSize);
             }
 
             ResumeLayout();
@@ -302,28 +302,50 @@ namespace Blockudoku
             spaceY = e.Y;
         }
 
-        private void checkPutOnBoard( int clickX, int clickY)
+        private void checkPutOnBoard(int clickX, int clickY)
         {
+            bool possible = true;
+
             //mino ispusten na tim retcima i stupcima
             int row = (clickY - (pictureBox_grid.Height - net.Visina) / 5) / net.VelicinaBloka;
             int col = (clickX - (pictureBox_grid.Width - net.Sirina) / 2) / net.VelicinaBloka;
 
-            for( int i = 0; i < selected.sadrzaj.GetLength(0); ++i )
-            {
-                for( int j = 0; j < selected.sadrzaj.GetLength(1); ++j )
-                {
-                    if( selected.sadrzaj[i,j] )
-                    {
+            //location of the begining of Mino matrix based on the mouseClick location
+            int rowS = (selected.Y - (pictureBox_grid.Height - net.Visina) / 5);
+            int colS = (selected.X - (pictureBox_grid.Width - net.Sirina) / 2);
+            rowS = rowS < 0 ? rowS / net.VelicinaBloka - 1 : rowS / net.VelicinaBloka;
+            colS = colS < 0 ? colS / net.VelicinaBloka - 1 : colS / net.VelicinaBloka;
 
+            for (int i = 0; i < selected.sadrzaj.GetLength(0); ++i)
+            {
+                for (int j = 0; j < selected.sadrzaj.GetLength(1); ++j)
+                {
+                    if (selected.sadrzaj[i, j])
+                    {
+                        if (i + colS > 8 || i + colS < 0 || j + rowS > 8 || j + rowS < 0 || net.Ploca[i + colS, j + rowS] == 1)
+                        {
+                            possible = false;
+                        }
                     }
                 }
             }
 
-            int rowS = (selected.Y - (pictureBox_grid.Height - net.Visina) / 5) / net.VelicinaBloka;
-            int colS = (selected.X - (pictureBox_grid.Width - net.Sirina) / 2) / net.VelicinaBloka;
-            Console.WriteLine("redak: " + rowS.ToString() + " ; stupac: " + colS.ToString());
+            if (possible)
+            {
+                selected.Stavljen = false;
+                net.putOnBoard(colS, rowS, selected);
+                net.updateBoard();
+            }
+            else
+            {
+                selected.resetPosition();
+            }
 
-            
+        }
+
+        private void button_back_Click(object sender, EventArgs e)
+        {
+            Program.stateManager.Transition(new MainMenuStateForm());
         }
 
         /*
