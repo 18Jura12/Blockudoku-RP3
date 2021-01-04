@@ -117,13 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="textBox_Rules.Text" xml:space="preserve">
+  <data name="customTextBox_rules.Text" xml:space="preserve">
     <value>BlokuDocku is a combination of sudoku and block puzzle game.
 
 Drop the blocks on the 9x9 grid.
 Match blocks to complete lines and squares to get them removed. 
 Keep the board clean, and beat your high score.
 
-Good luck!</value>
+Good luck!
+</value>
   </data>
 </root>

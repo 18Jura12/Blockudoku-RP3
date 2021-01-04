@@ -156,18 +156,28 @@ namespace Blockudoku
 
         private void PlayStateForm_SizeChanged(object sender, EventArgs e)
         {
-            if( net != null )
+            
+
+            if ( net != null )
             {
+                //Console.WriteLine(b.GetValue(0).ToString());
+                pictureBox_grid.Width = Convert.ToInt32(tableLayoutPanel_game.GetColumnWidths().GetValue(1));
+                pictureBox_grid.Height = Convert.ToInt32(tableLayoutPanel_game.GetRowHeights().GetValue(0));
+
                 // 2/3 pictureBox / 9
                 int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) * 2 / 27) - 2;
                 net.Sirina = blockSize * 9;
                 net.Visina = blockSize * 9;
                 net.VelicinaBloka = blockSize;
+                
             }
 
             // mozda dodat još i mijenjanje startX i startY od svakog minos-a; PROVJERI!!
             if( minos != null )
             {
+                pictureBox_grid.Width = Convert.ToInt32(tableLayoutPanel_game.GetColumnWidths().GetValue(1));
+                pictureBox_grid.Height = Convert.ToInt32(tableLayoutPanel_game.GetRowHeights().GetValue(0));
+
                 //smaller than original 15-->18
                 int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 16);
                 int startY = net.Visina + (pictureBox_grid.Height - blockSize * 9) / 5;

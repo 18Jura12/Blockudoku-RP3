@@ -16,7 +16,18 @@ namespace Blockudoku
         public TopScoresStateForm()
         {
             InitializeComponent();
-            textBox_Scores.Enter += (s, e) => { textBox_Scores.Parent.Focus(); };
+            //textBox_Scores.Enter += (s, e) => { textBox_Scores.Parent.Focus(); };
+            customTextBox_topTen.Enter += (s, e) => { customTextBox_topTen.Parent.Focus(); };
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle = cp.ExStyle | 0x2000000;
+                return cp;
+            }
         }
 
         private void TopScoresStateForm_SizeChanged(object sender, EventArgs e)
@@ -30,22 +41,29 @@ namespace Blockudoku
 
             this.groupBox_Scores.Location = new Point(x1, y1);
 
-            this.textBox_Scores.Width = this.groupBox_Scores.Width * 2 / 3;
-            this.textBox_Scores.Height = this.groupBox_Scores.Height * 2 / 3;
+            //this.textBox_Scores.Width = this.groupBox_Scores.Width * 2 / 3;
+            //this.textBox_Scores.Height = this.groupBox_Scores.Height * 2 / 3;
+
+            this.customTextBox_topTen.Width = this.groupBox_Scores.Width * 2 / 3;
+            this.customTextBox_topTen.Height = this.groupBox_Scores.Height * 2 / 3;
 
             // 2/3 textBox, 1/6 left,right,top,down
             int x2 = Convert.ToInt32(this.groupBox_Scores.Width / 6);
             int y2 = Convert.ToInt32(this.groupBox_Scores.Height / 6);
 
-            this.textBox_Scores.Location = new Point(x2, y2);
+            //this.textBox_Scores.Location = new Point(x2, y2);
+            this.customTextBox_topTen.Location = new Point(x2, y2);
 
             //button
-            this.button_Scores_back.Width = textBox_Scores.Width / 4;
-            this.button_Scores_back.Height = textBox_Scores.Height / 8;
+            this.button_Scores_back.Width = customTextBox_topTen.Width / 4;
+            this.button_Scores_back.Height = customTextBox_topTen.Height / 8;
+            //this.button_Scores_back.Width = textBox_Scores.Width / 4;
+            //this.button_Scores_back.Height = textBox_Scores.Height / 8;
 
             // 1/4 button, 3/8 left,right, top: textbox+y2
             int x3 = Convert.ToInt32(this.groupBox_Scores.Width * 3 / 8);
-            int y3 = Convert.ToInt32(y2 + textBox_Scores.Height);
+            int y3 = Convert.ToInt32(y2 + customTextBox_topTen.Height);
+            //int y3 = Convert.ToInt32(y2 + textBox_Scores.Height);
 
             this.button_Scores_back.Location = new Point(x3, y3);
         }
@@ -78,7 +96,8 @@ namespace Blockudoku
 
                     while (sr.Peek() >= 0)
                     {
-                        this.textBox_Scores.AppendText(i.ToString() + ".\t" + sr.ReadLine() + Environment.NewLine);
+                        this.customTextBox_topTen.AppendText(i.ToString() + ".\t" + sr.ReadLine() + Environment.NewLine);
+                        //this.textBox_Scores.AppendText(i.ToString() + ".\t" + sr.ReadLine() + Environment.NewLine);
                         //Console.WriteLine(sr.ReadLine());
                         ++i;
                     }

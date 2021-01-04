@@ -41,6 +41,9 @@ namespace Blockudoku
             // 
             // main_menu_panel
             // 
+            this.main_menu_panel.BackColor = System.Drawing.Color.White;
+            this.main_menu_panel.BackgroundImage = global::Blockudoku.Properties.Resources.simple_blue_background1;
+            this.main_menu_panel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.main_menu_panel.ColumnCount = 2;
             this.main_menu_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.main_menu_panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -165,8 +168,11 @@ namespace Blockudoku
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.main_menu_panel);
+            this.DoubleBuffered = true;
             this.Location = new System.Drawing.Point(0, 0);
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "MainMenuStateForm";

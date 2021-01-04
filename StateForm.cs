@@ -21,6 +21,11 @@ namespace Blockudoku
         public StateForm()
         {
             InitializeComponent();
+
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.DoubleBuffer, true);
+
         }
     }
 }

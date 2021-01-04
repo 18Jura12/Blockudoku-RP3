@@ -15,6 +15,22 @@ namespace Blockudoku
         public MainMenuStateForm()
         {
             InitializeComponent();
+
+            // flickering
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.DoubleBuffer, true);
+
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle = cp.ExStyle | 0x2000000;
+                return cp;
+            }
         }
 
         private void options_button_Click(object sender, EventArgs e)
