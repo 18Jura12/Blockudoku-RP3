@@ -129,10 +129,6 @@ namespace Blockudoku
             else
             {
                 //MessageBox.Show(minos[2].Stavljen.ToString());
-                if (!minos[0].Stavljen && !minos[1].Stavljen && !minos[2].Stavljen)
-                {
-                    minos = makeMinos();
-                }
 
                 //smaller than original 15-->18
                 int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 16);
@@ -152,6 +148,7 @@ namespace Blockudoku
             ResumeLayout();
 
             pictureBox_grid.Invalidate();
+
         }
 
         private void PlayStateForm_SizeChanged(object sender, EventArgs e)
@@ -345,6 +342,13 @@ namespace Blockudoku
                 selected.Stavljen = false;
                 net.putOnBoard(colS, rowS, selected);
                 net.updateBoard();
+
+                if (!minos[0].Stavljen && !minos[1].Stavljen && !minos[2].Stavljen)
+                {
+                    minos = makeMinos();
+
+                }
+                if (isEnd()) Program.stateManager.Transition(new PlayStateForm());
             }
             else
             {
@@ -356,6 +360,21 @@ namespace Blockudoku
         private void button_back_Click(object sender, EventArgs e)
         {
             Program.stateManager.Transition(new MainMenuStateForm());
+        }
+
+        private bool isEnd()
+        {
+            bool end = true;
+            foreach (Mino mino in minos)
+            {
+                if (mino.Stavljen && net.isMinoPossible(mino))
+                {
+                    end = false;
+                    break;
+                }
+            }
+            //Ovdje namjesti što se dogodi na kraju
+            return end; ;
         }
 
         /*
