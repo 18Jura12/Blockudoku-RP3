@@ -28,6 +28,19 @@ namespace Blockudoku
             //od klika za selected
             spaceX = 0;
             spaceY = 0;
+
+            //mislim da to ne radi
+            this.tableLayoutPanel_game.BackColor = this.colorBackground;
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle = cp.ExStyle | 0x2000000;
+                return cp;
+            }
         }
 
         List<Mino> makeMinos()
@@ -60,6 +73,7 @@ namespace Blockudoku
                         {
                             case 0:
                                 minos.Add(new DoVertical(blockSize, 500, i * 200));
+                                //minos.Add(new DoVertical(blockSize, startX + 5 * i * blockSize, startY));
                                 break;
                             case 1:
                                 minos.Add(new DoDiag(blockSize, 500, i * 200));
@@ -120,7 +134,8 @@ namespace Blockudoku
         private void pictureBox_grid_Paint(object sender, PaintEventArgs e)
         {
             SuspendLayout();
-            net.crtajPlocu(e.Graphics, pictureBox_grid.Width, pictureBox_grid.Height);
+            //Console.WriteLine(this.colorBackground);
+            net.crtajPlocu(e.Graphics, pictureBox_grid.Width, pictureBox_grid.Height, this.colorBlocks, this.colorBackground);
 
             if (minos == null)
             {
@@ -130,7 +145,7 @@ namespace Blockudoku
             {
                 //MessageBox.Show(minos[2].Stavljen.ToString());
 
-                //smaller than original 15-->18
+                //smaller than original 15-->16
                 int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 16);
 
                 //int startY = (pictureBox_grid.Height - blockSize * 5) / 2;
@@ -140,9 +155,9 @@ namespace Blockudoku
                 int startY = net.Visina + (pictureBox_grid.Height - blockSize * 9) / 5;
                 int startX = (pictureBox_grid.Width - blockSize * 15) / 2;
 
-                if (minos[0].Stavljen) minos[0].crtaj(e.Graphics, startX, startY, blockSize);
-                if (minos[1].Stavljen) minos[1].crtaj(e.Graphics, startX + 5 * blockSize, startY, blockSize);
-                if (minos[2].Stavljen) minos[2].crtaj(e.Graphics, startX + 10 * blockSize, startY, blockSize);
+                if (minos[0].Stavljen) minos[0].crtaj(e.Graphics, startX, startY, blockSize, this.colorBlocks);
+                if (minos[1].Stavljen) minos[1].crtaj(e.Graphics, startX + 5 * blockSize, startY, blockSize, this.colorBlocks);
+                if (minos[2].Stavljen) minos[2].crtaj(e.Graphics, startX + 10 * blockSize, startY, blockSize, this.colorBlocks);
             }
 
             ResumeLayout();
@@ -158,6 +173,7 @@ namespace Blockudoku
             if ( net != null )
             {
                 //Console.WriteLine(b.GetValue(0).ToString());
+
                 pictureBox_grid.Width = Convert.ToInt32(tableLayoutPanel_game.GetColumnWidths().GetValue(1));
                 pictureBox_grid.Height = Convert.ToInt32(tableLayoutPanel_game.GetRowHeights().GetValue(0));
 
@@ -193,50 +209,7 @@ namespace Blockudoku
             } 
         }
 
-        private void pictureBox_grid_MouseDown(object sender, MouseEventArgs e)
-        {
-            /*
-            if( e.Button == MouseButtons.Left)
-            {
-                //odabran je neki mino
-                if( selected != null )
-                {
-                    selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
-                } else
-                {
-                     
-                    //još nije odabran oblik
-                    if (minos[0].onItem(e.Location.X, e.Location.Y) && minos[0].Stavljen )
-                    {
-                        selected = minos[0];
-                        spaceX = e.Location.X - minos[0].StartX;
-                        spaceY = e.Location.Y - minos[0].StartY;
-                        selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
-                        Console.WriteLine("LIJEVA TIPKA MISA.");
-                    }
-
-                    if (minos[1].onItem(e.Location.X, e.Location.Y) && minos[1].Stavljen )
-                    {
-                        selected = minos[1];
-                        spaceX = e.Location.X - minos[1].StartX;
-                        spaceY = e.Location.Y - minos[1].StartY;
-                        //selected.moveMino(e.Location.X, e.Location.Y);
-                        Console.WriteLine("LIJEVA TIPKA MISA.");
-                    }
-
-                    if (minos[2].onItem(e.Location.X, e.Location.Y) && minos[2].Stavljen )
-                    {
-                        selected = minos[2];
-                        spaceX = e.Location.X - minos[2].StartX;
-                        spaceY = e.Location.Y - minos[2].StartY;
-                        //selected.moveMino(e.Location.X, e.Location.Y);
-                        Console.WriteLine("LIJEVA TIPKA MISA.");
-                    }
-                }
-                
-            }
-            */
-        }
+        
 
         private void pictureBox_grid_MouseUp(object sender, MouseEventArgs e)
         {
@@ -249,7 +222,7 @@ namespace Blockudoku
                 if ( e.Location.X >= startX && e.Location.X <= (startX + net.Sirina) && e.Location.Y >= startY && e.Location.Y <= (startY + net.Visina))
                 {
                     checkPutOnBoard(e.Location.X, e.Location.Y);
-                    Console.WriteLine("unutar");
+                    //Console.WriteLine("unutar");
                 } else
                 {
                     selected.resetPosition();

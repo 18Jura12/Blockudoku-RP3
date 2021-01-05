@@ -17,6 +17,8 @@ namespace Blockudoku
         public int theme { get; set; }
         public bool timed { get; set; }
         public bool obstacles { get; set; }
+        public Color colorBlocks { get; set; }
+        public Color colorBackground { get; set; }
 
         public StateForm()
         {
@@ -26,6 +28,8 @@ namespace Blockudoku
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
 
+            colorBlocks = System.Drawing.Color.DarkBlue;
+            colorBackground = System.Drawing.Color.Azure;
         }
     }
 }

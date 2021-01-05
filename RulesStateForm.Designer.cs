@@ -31,8 +31,8 @@ namespace Blockudoku
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RulesStateForm));
             this.groupBox_Rules = new System.Windows.Forms.GroupBox();
-            this.button_Rules_back = new System.Windows.Forms.Button();
             this.customTextBox_rules = new Blockudoku.CustomTextBox();
+            this.button_Rules_back = new System.Windows.Forms.Button();
             this.groupBox_Rules.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,18 +51,6 @@ namespace Blockudoku
             this.groupBox_Rules.TabStop = false;
             this.groupBox_Rules.Text = "Rules";
             // 
-            // button_Rules_back
-            // 
-            this.button_Rules_back.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_Rules_back.Font = new System.Drawing.Font("Papyrus", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_Rules_back.Location = new System.Drawing.Point(129, 261);
-            this.button_Rules_back.Name = "button_Rules_back";
-            this.button_Rules_back.Size = new System.Drawing.Size(75, 23);
-            this.button_Rules_back.TabIndex = 1;
-            this.button_Rules_back.Text = "BACK";
-            this.button_Rules_back.UseVisualStyleBackColor = true;
-            this.button_Rules_back.Click += new System.EventHandler(this.button_Rules_back_Click);
-            // 
             // customTextBox_rules
             // 
             this.customTextBox_rules.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -76,6 +64,18 @@ namespace Blockudoku
             this.customTextBox_rules.Size = new System.Drawing.Size(100, 22);
             this.customTextBox_rules.TabIndex = 1;
             this.customTextBox_rules.Text = resources.GetString("customTextBox_rules.Text");
+            // 
+            // button_Rules_back
+            // 
+            this.button_Rules_back.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button_Rules_back.Font = new System.Drawing.Font("Papyrus", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_Rules_back.Location = new System.Drawing.Point(129, 261);
+            this.button_Rules_back.Name = "button_Rules_back";
+            this.button_Rules_back.Size = new System.Drawing.Size(75, 23);
+            this.button_Rules_back.TabIndex = 1;
+            this.button_Rules_back.Text = "BACK";
+            this.button_Rules_back.UseVisualStyleBackColor = true;
+            this.button_Rules_back.Click += new System.EventHandler(this.button_Rules_back_Click);
             // 
             // RulesStateForm
             // 

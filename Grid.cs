@@ -30,9 +30,9 @@ namespace Blockudoku
             this.ploca = new int[n, n];
         }
 
-        public void crtajPlocu(Graphics grafika, int sirina, int visina)
+        public void crtajPlocu(Graphics grafika, int sirina, int visina, Color color, Color background)
         {
-            grafika.Clear(Color.White);
+            grafika.Clear(background);
             grafika.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
             int startX = (sirina - velicinaBloka * 9) / 2;
@@ -46,7 +46,7 @@ namespace Blockudoku
                     //grafika.DrawRectangle(Pens.DarkBlue, i * velicinaBloka + 5, j * velicinaBloka + 5, velicinaBloka, velicinaBloka);
                     if (ploca[i, j] > 0)
                     {
-                        grafika.FillRectangle(new SolidBrush(Color.DarkBlue), new Rectangle(i * velicinaBloka + startX, j * velicinaBloka + startY, velicinaBloka, velicinaBloka));
+                        grafika.FillRectangle(new SolidBrush(color), new Rectangle(i * velicinaBloka + startX, j * velicinaBloka + startY, velicinaBloka, velicinaBloka));
 
                     }
                 }

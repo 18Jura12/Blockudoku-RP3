@@ -26,9 +26,11 @@ namespace Blockudoku
 
         private void redrawText()
         {
+            RectangleF rect = new RectangleF(1F, 1F, this.Width, this.Height);
             using (Graphics graphics = this.CreateGraphics())
             using (SolidBrush brush = new SolidBrush(this.ForeColor))
-                graphics.DrawString(this.Text, this.Font, brush, 1, 1);
+                //graphics.DrawString(this.Text, this.Font, brush, 1, 1);
+                graphics.DrawString(this.Text, this.Font, brush, rect);
         }
 
         protected override void OnPaint(PaintEventArgs e)

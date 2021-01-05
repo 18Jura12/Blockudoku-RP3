@@ -41,17 +41,18 @@ namespace Blockudoku
             // options_groupBox
             // 
             this.options_groupBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.options_groupBox.BackColor = System.Drawing.Color.Transparent;
             this.options_groupBox.Controls.Add(this.back_button);
             this.options_groupBox.Controls.Add(this.theme_comboBox);
             this.options_groupBox.Controls.Add(this.theme_label);
             this.options_groupBox.Controls.Add(this.obstacles_checkBox);
             this.options_groupBox.Controls.Add(this.timed_checkBox);
             this.options_groupBox.Font = new System.Drawing.Font("Papyrus", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.options_groupBox.ForeColor = System.Drawing.Color.Crimson;
+            this.options_groupBox.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.options_groupBox.Location = new System.Drawing.Point(204, 14);
-            this.options_groupBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.options_groupBox.Margin = new System.Windows.Forms.Padding(4);
             this.options_groupBox.Name = "options_groupBox";
-            this.options_groupBox.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.options_groupBox.Padding = new System.Windows.Forms.Padding(4);
             this.options_groupBox.Size = new System.Drawing.Size(664, 508);
             this.options_groupBox.TabIndex = 0;
             this.options_groupBox.TabStop = false;
@@ -60,13 +61,13 @@ namespace Blockudoku
             // back_button
             // 
             this.back_button.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.back_button.FlatAppearance.BorderColor = System.Drawing.Color.Crimson;
+            this.back_button.FlatAppearance.BorderColor = System.Drawing.SystemColors.HotTrack;
             this.back_button.FlatAppearance.BorderSize = 2;
             this.back_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.back_button.Font = new System.Drawing.Font("Papyrus", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.back_button.ForeColor = System.Drawing.Color.Crimson;
+            this.back_button.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.back_button.Location = new System.Drawing.Point(96, 334);
-            this.back_button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.back_button.Margin = new System.Windows.Forms.Padding(4);
             this.back_button.Name = "back_button";
             this.back_button.Size = new System.Drawing.Size(240, 74);
             this.back_button.TabIndex = 4;
@@ -78,16 +79,18 @@ namespace Blockudoku
             // 
             this.theme_comboBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.theme_comboBox.BackColor = System.Drawing.Color.LightCyan;
+            this.theme_comboBox.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.theme_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.theme_comboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.theme_comboBox.Font = new System.Drawing.Font("Papyrus", 16.25F, System.Drawing.FontStyle.Bold);
-            this.theme_comboBox.ForeColor = System.Drawing.Color.Crimson;
+            this.theme_comboBox.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.theme_comboBox.FormattingEnabled = true;
             this.theme_comboBox.Items.AddRange(new object[] {
-            "Theme 1",
-            "Theme 2",
-            "Theme 3"});
+            "Blue",
+            "Green",
+            "Purple"});
             this.theme_comboBox.Location = new System.Drawing.Point(233, 250);
-            this.theme_comboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.theme_comboBox.Margin = new System.Windows.Forms.Padding(4);
             this.theme_comboBox.Name = "theme_comboBox";
             this.theme_comboBox.Size = new System.Drawing.Size(160, 50);
             this.theme_comboBox.TabIndex = 3;
@@ -109,10 +112,10 @@ namespace Blockudoku
             // 
             this.obstacles_checkBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.obstacles_checkBox.AutoSize = true;
-            this.obstacles_checkBox.BackColor = System.Drawing.Color.LightCyan;
+            this.obstacles_checkBox.BackColor = System.Drawing.Color.Transparent;
             this.obstacles_checkBox.Font = new System.Drawing.Font("Papyrus", 16.25F, System.Drawing.FontStyle.Bold);
             this.obstacles_checkBox.Location = new System.Drawing.Point(96, 177);
-            this.obstacles_checkBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.obstacles_checkBox.Margin = new System.Windows.Forms.Padding(4);
             this.obstacles_checkBox.Name = "obstacles_checkBox";
             this.obstacles_checkBox.Size = new System.Drawing.Size(180, 48);
             this.obstacles_checkBox.TabIndex = 1;
@@ -124,24 +127,29 @@ namespace Blockudoku
             // 
             this.timed_checkBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.timed_checkBox.AutoSize = true;
+            this.timed_checkBox.BackColor = System.Drawing.Color.Transparent;
             this.timed_checkBox.Font = new System.Drawing.Font("Papyrus", 16.25F, System.Drawing.FontStyle.Bold);
             this.timed_checkBox.Location = new System.Drawing.Point(96, 103);
-            this.timed_checkBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.timed_checkBox.Margin = new System.Windows.Forms.Padding(4);
             this.timed_checkBox.Name = "timed_checkBox";
             this.timed_checkBox.Size = new System.Drawing.Size(126, 48);
             this.timed_checkBox.TabIndex = 0;
             this.timed_checkBox.Text = "Timed";
-            this.timed_checkBox.UseVisualStyleBackColor = true;
+            this.timed_checkBox.UseVisualStyleBackColor = false;
             this.timed_checkBox.CheckedChanged += new System.EventHandler(this.timed_checkBox_CheckedChanged);
             // 
             // OptionsStateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
+            this.BackgroundImage = global::Blockudoku.Properties.Resources.simple_blue_background1;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.options_groupBox);
+            this.DoubleBuffered = true;
             this.Location = new System.Drawing.Point(0, 0);
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "OptionsStateForm";
             this.Text = "OptionsStateForm";
             this.Load += new System.EventHandler(this.OptionsStateForm_Load);

@@ -24,6 +24,8 @@ namespace Blockudoku
             NewState.timed = CurrentState.timed;
             NewState.obstacles = CurrentState.obstacles;
             NewState.theme = CurrentState.theme;
+            NewState.colorBlocks = CurrentState.colorBlocks;
+            NewState.colorBackground = CurrentState.colorBackground;
 
             CurrentState.FormClosing += (sender, e) =>
             {

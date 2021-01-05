@@ -66,7 +66,6 @@ namespace Blockudoku
             this.pictureBox_grid.TabStop = false;
             this.pictureBox_grid.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_grid_Paint);
             this.pictureBox_grid.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox_grid_MouseClick);
-            this.pictureBox_grid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_grid_MouseDown);
             this.pictureBox_grid.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_grid_MouseMove);
             this.pictureBox_grid.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_grid_MouseUp);
             // 
@@ -88,8 +87,9 @@ namespace Blockudoku
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1044, 545);
             this.Controls.Add(this.tableLayoutPanel_game);
+            this.DoubleBuffered = true;
             this.Location = new System.Drawing.Point(0, 0);
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "PlayStateForm";
             this.Text = "PlayStateForm";
             this.SizeChanged += new System.EventHandler(this.PlayStateForm_SizeChanged);

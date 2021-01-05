@@ -17,6 +17,16 @@ namespace Blockudoku
             InitializeComponent();
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle = cp.ExStyle | 0x2000000;
+                return cp;
+            }
+        }
+
         private void timed_checkBox_CheckedChanged(object sender, EventArgs e)
         {
             this.timed = this.timed_checkBox.Checked;
@@ -25,11 +35,29 @@ namespace Blockudoku
         private void obstacles_checkBox_CheckedChanged(object sender, EventArgs e)
         {
             this.obstacles = this.obstacles_checkBox.Checked;
+
         }
 
         private void theme_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.theme = this.theme_comboBox.SelectedIndex;
+            //this.theme = this.theme_comboBox.SelectedIndex;
+
+            switch (this.theme_comboBox.SelectedIndex)
+            {
+                case 0:
+                    this.colorBlocks = System.Drawing.Color.DarkBlue;
+                    this.colorBackground = System.Drawing.Color.Azure;
+                    break;
+                case 1:
+                    this.colorBlocks = System.Drawing.Color.DarkGreen;
+                    this.colorBackground = System.Drawing.Color.Honeydew;
+                    break;
+                case 2:
+                    this.colorBlocks = System.Drawing.Color.DarkOrchid;
+                    this.colorBackground = System.Drawing.Color.LavenderBlush;
+                    break;
+            }
+            //Console.WriteLine(this.colorBackground);
         }
 
         private void back_button_Click(object sender, EventArgs e)

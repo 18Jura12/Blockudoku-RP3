@@ -37,9 +37,9 @@ namespace Blockudoku
             this.sadrzaj = new bool[5, 5];
         }
 
-        public void crtaj(Graphics grafika, int startX, int startY, int size)
+        public void crtaj(Graphics grafika, int startX, int startY, int size, Color color)
         {
-            SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.DarkBlue);
+            SolidBrush myBrush = new System.Drawing.SolidBrush(color);
 
             for (int i = 0; i < sadrzaj.GetLength(0); i++)
             {

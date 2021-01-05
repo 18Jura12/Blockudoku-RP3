@@ -74,5 +74,6 @@ namespace Blockudoku
         {
             Program.stateManager.Transition(new MainMenuStateForm());
         }
+
     }
 }
