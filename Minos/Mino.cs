@@ -21,7 +21,9 @@ namespace Blockudoku
         int startX;
         int startY;
         //ako jos nije stavljen na plocu je true, inace false OKRENI!!!!
-        bool stavljen = true;
+        bool stavljen;
+        //je li označen od strane miša ili ne
+        bool isSelected;
         //najmanji redak u kojem se nalazi neki blok u 5x5 matrici
         public int minrow;
         //najmanji stupac u kojem se nalazi neki blok u 5x5 matrici
@@ -35,6 +37,8 @@ namespace Blockudoku
             this.y = Y;
             this.blockSize = blockSize;
             this.sadrzaj = new bool[5, 5];
+            stavljen = true;
+            isSelected = false;
         }
 
         public void crtaj(Graphics grafika, int startX, int startY, int size, Color color)
@@ -47,23 +51,29 @@ namespace Blockudoku
                 {
                     if (sadrzaj[i, j])
                     {
-                        //Rectangle rect = new Rectangle(i * size + startX, j * size + startY, size, size);
-                        Rectangle rect = new Rectangle(i * blockSize + x, j * blockSize + y, blockSize, blockSize);
+                        Rectangle rect;
+                        if(isSelected)
+                        {
+                            rect = new Rectangle(i * blockSize + x, j * blockSize + y, blockSize, blockSize);
+                        } else
+                        {
+                            rect = new Rectangle(i * size + startX, j * size + startY, size, size);
+                        }
 
                         grafika.FillRectangle(myBrush, rect);
                         grafika.DrawRectangle(Pens.AntiqueWhite, rect);
                     }
-                    else
+                    /*else
                     {
-                        //Rectangle rect = new Rectangle(i * size + startX, j * size + startY, size, size);
-                        Rectangle rect = new Rectangle(i * blockSize + x, j * blockSize + y, blockSize, blockSize);
+                        Rectangle rect = new Rectangle(i * size + startX, j * size + startY, size, size);
+                        //Rectangle rect = new Rectangle(i * blockSize + x, j * blockSize + y, blockSize, blockSize);
                         grafika.DrawRectangle(Pens.AntiqueWhite, rect);
-                    }
+                    }*/
                 }
             }
         }
 
-        // checks if koordinates (x,y) are on item; PROVJERI DAL RADI!!; radi
+        // checks if coordinates (x,y) are on item; PROVJERI DAL RADI!!; radi
         public bool onItem( int x, int y)
         {
             //Console.WriteLine("x: " + x.ToString());
@@ -112,6 +122,7 @@ namespace Blockudoku
         {
             this.x = this.StartX;
             this.y = this.StartY;
+            isSelected = false;
         }
 
         public bool Stavljen
@@ -183,6 +194,18 @@ namespace Blockudoku
             set
             {
                 y = value;
+            }
+        }
+
+        public bool IsSelected
+        {
+            get
+            {
+                return isSelected;
+            }
+            set
+            {
+                isSelected = value;
             }
         }
     }

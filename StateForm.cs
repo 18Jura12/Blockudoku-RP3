@@ -14,9 +14,9 @@ namespace Blockudoku
     {
 
         public int level { get; set; }
-        public int theme { get; set; }
         public bool timed { get; set; }
         public bool obstacles { get; set; }
+        public int score { get; set; }
         public Color colorBlocks { get; set; }
         public Color colorBackground { get; set; }
 

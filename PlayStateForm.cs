@@ -28,6 +28,7 @@ namespace Blockudoku
             //od klika za selected
             spaceX = 0;
             spaceY = 0;
+            score = 0;
 
             //mislim da to ne radi
             this.tableLayoutPanel_game.BackColor = this.colorBackground;
@@ -50,9 +51,6 @@ namespace Blockudoku
             int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 16);
 
             Random rand = new Random();
-            Random rand2 = new Random();
-            Random rand3 = new Random();
-            Random rand4 = new Random();
 
             for (int i = 0; i < 3; i++)
             {
@@ -68,8 +66,8 @@ namespace Blockudoku
                         minos.Add(new Mono(blockSize, 500, i * 200));
                         break;
                     case 1:
-                        int randNum2 = rand2.Next(0, 2);
-                        switch (randNum2)
+                        randNum = rand.Next(0, 2);
+                        switch (randNum)
                         {
                             case 0:
                                 minos.Add(new DoVertical(blockSize, 500, i * 200));
@@ -81,8 +79,8 @@ namespace Blockudoku
                         }
                         break;
                     case 2:
-                        int randNum3 = rand3.Next(0, 3);
-                        switch (randNum3)
+                        randNum = rand.Next(0, 3);
+                        switch (randNum)
                         {
                             case 0:
                                 minos.Add(new TriVertical(blockSize, 500, i * 200));
@@ -96,8 +94,8 @@ namespace Blockudoku
                         }
                         break;
                     case 3:
-                        int randNum4 = rand4.Next(0, 4);
-                        switch (randNum4)
+                        randNum = rand.Next(0, 4);
+                        switch (randNum)
                         {
                             case 0:
                                 minos.Add(new TetroVertical(blockSize, 500, i * 200));
@@ -175,7 +173,7 @@ namespace Blockudoku
                 //Console.WriteLine(b.GetValue(0).ToString());
 
                 pictureBox_grid.Width = Convert.ToInt32(tableLayoutPanel_game.GetColumnWidths().GetValue(1));
-                pictureBox_grid.Height = Convert.ToInt32(tableLayoutPanel_game.GetRowHeights().GetValue(0));
+                pictureBox_grid.Height = 4 * Convert.ToInt32(tableLayoutPanel_game.GetRowHeights().GetValue(0));
 
                 // 2/3 pictureBox / 9
                 int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) * 2 / 27) - 2;
@@ -188,28 +186,31 @@ namespace Blockudoku
             // mozda dodat još i mijenjanje startX i startY od svakog minos-a; PROVJERI!!
             if( minos != null )
             {
-                pictureBox_grid.Width = Convert.ToInt32(tableLayoutPanel_game.GetColumnWidths().GetValue(1));
-                pictureBox_grid.Height = Convert.ToInt32(tableLayoutPanel_game.GetRowHeights().GetValue(0));
-
-                //smaller than original 15-->18
-                int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 16);
-                int startY = net.Visina + (pictureBox_grid.Height - blockSize * 9) / 5;
-                int startX = (pictureBox_grid.Width - blockSize * 15) / 2;
-                for ( int i = 0; i < minos.Count; ++i )
-                {
-                    if( minos[i].Stavljen )
-                    {
-                        minos[i].BlockSize = blockSize;
-                        minos[i].StartX = startX + i * 5 * blockSize;
-                        minos[i].StartY = startY;
-                        minos[i].X = startX + i * 5 * blockSize;
-                        minos[i].Y = startY;
-                    }
-                }
+                resizeMinos();
             } 
         }
 
-        
+        public void resizeMinos()
+        {
+            pictureBox_grid.Width = Convert.ToInt32(tableLayoutPanel_game.GetColumnWidths().GetValue(1));
+            pictureBox_grid.Height = Convert.ToInt32(tableLayoutPanel_game.GetRowHeights().GetValue(0));
+
+            //smaller than original 15-->18
+            int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 16);
+            int startY = net.Visina + (pictureBox_grid.Height - blockSize * 9) / 5;
+            int startX = (pictureBox_grid.Width - blockSize * 15) / 2;
+            for (int i = 0; i < minos.Count; ++i)
+            {
+                if (minos[i].Stavljen)
+                {
+                    minos[i].BlockSize = blockSize;
+                    minos[i].StartX = startX + i * 5 * blockSize;
+                    minos[i].StartY = startY;
+                    minos[i].X = startX + i * 5 * blockSize;
+                    minos[i].Y = startY;
+                }
+            }
+        }        
 
         private void pictureBox_grid_MouseUp(object sender, MouseEventArgs e)
         {
@@ -244,33 +245,19 @@ namespace Blockudoku
                 }
                 else
                 {
-
                     //još nije odabran oblik
-                    if (minos[0].onItem(e.Location.X, e.Location.Y) && minos[0].Stavljen)
+                    foreach(Mino mino in minos)
                     {
-                        selected = minos[0];
-                        spaceX = e.Location.X - minos[0].StartX;
-                        spaceY = e.Location.Y - minos[0].StartY;
-                        selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
-                        //Console.WriteLine("LIJEVA TIPKA MISA.");
-                    }
-
-                    if (minos[1].onItem(e.Location.X, e.Location.Y) && minos[1].Stavljen)
-                    {
-                        selected = minos[1];
-                        spaceX = e.Location.X - minos[1].StartX;
-                        spaceY = e.Location.Y - minos[1].StartY;
-                        selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
-                        //Console.WriteLine("LIJEVA TIPKA MISA.");
-                    }
-
-                    if (minos[2].onItem(e.Location.X, e.Location.Y) && minos[2].Stavljen)
-                    {
-                        selected = minos[2];
-                        spaceX = e.Location.X - minos[2].StartX;
-                        spaceY = e.Location.Y - minos[2].StartY;
-                        selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
-                        //Console.WriteLine("LIJEVA TIPKA MISA.");
+                        if (mino.onItem(e.Location.X, e.Location.Y) && mino.Stavljen)
+                        {
+                            selected = mino;
+                            mino.IsSelected = true;
+                            spaceX = e.Location.X - mino.StartX;
+                            spaceY = e.Location.Y - mino.StartY;
+                            selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
+                            break;
+                            //Console.WriteLine("LIJEVA TIPKA MISA.");
+                        }
                     }
                 }
             }
@@ -313,12 +300,15 @@ namespace Blockudoku
             if (possible)
             {
                 selected.Stavljen = false;
+                selected.IsSelected = false;
                 net.putOnBoard(colS, rowS, selected);
-                net.updateBoard();
+                score += net.updateBoard();
+                this.score_label.Text = "Score: " + score.ToString();
 
                 if (!minos[0].Stavljen && !minos[1].Stavljen && !minos[2].Stavljen)
                 {
                     minos = makeMinos();
+                    resizeMinos();
 
                 }
                 if (isEnd()) Program.stateManager.Transition(new PlayStateForm());
@@ -348,6 +338,11 @@ namespace Blockudoku
             }
             //Ovdje namjesti što se dogodi na kraju
             return end; ;
+        }
+
+        private void PlayStateForm_Load(object sender, EventArgs e)
+        {
+            resizeMinos();
         }
 
         /*

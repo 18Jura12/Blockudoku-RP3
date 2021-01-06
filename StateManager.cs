@@ -23,7 +23,6 @@ namespace Blockudoku
             NewState.level = CurrentState.level;
             NewState.timed = CurrentState.timed;
             NewState.obstacles = CurrentState.obstacles;
-            NewState.theme = CurrentState.theme;
             NewState.colorBlocks = CurrentState.colorBlocks;
             NewState.colorBackground = CurrentState.colorBackground;
 

@@ -14,7 +14,6 @@ namespace Blockudoku
         int sirina = 450;
         int visina = 450;
         int[,] ploca;
-        int rezultat = 0;
 
         public Grid()
         {
@@ -124,10 +123,17 @@ namespace Blockudoku
             }
         }
 
-        public void updateBoard()
+        /**
+         * updates the board by removing and scoring full areas that were made in current move
+         */
+        public int updateBoard()
         {
             bool full = true;
             int counter = 0;
+            //counts how many full areas are done at once, so that it later multiplies the given score
+            int combo = 0;
+            //added up penalties that are given for every obstacle that the full area contains
+            int penalty = 0;
 
             //remembers which row/col/block is full
             int[] rows = new int[9];
@@ -140,12 +146,19 @@ namespace Blockudoku
                 full = true;
                 for (int j = 0; j < ploca.GetLength(1); j++)
                 {
-                    if (ploca[j, i] == 0) { full = false; break; }
+                    if (ploca[j, i] == 0) 
+                    {
+                        full = false; break;
+                    } else
+                    {
+                        //correct since filled rectangle other than an obstacle is marked with value '1'
+                        penalty += ploca[j, i] - 1;
+                    }
                 }
                 if (full)
                 {
                     //Console.WriteLine("row {0} full.", i);
-                    rows[counter] = i+1; counter++;
+                    rows[counter] = i+1; counter++; combo++;
                 }
             }
             counter = 0;
@@ -159,7 +172,7 @@ namespace Blockudoku
                 if (full)
                 {
                     //Console.WriteLine("col {0} full.", i);
-                    columns[counter] = i+1; counter++;
+                    columns[counter] = i+1; counter++; combo++;
                 }
             }
             counter = 0;
@@ -181,6 +194,7 @@ namespace Blockudoku
                         Console.WriteLine("block {0},{1} full.", i, j);
                         blocks[counter] = i+1; counter++;
                         blocks[counter] = j+1; counter++;
+                        combo ++;
                     }
                 }
             }
@@ -189,6 +203,8 @@ namespace Blockudoku
             for (int a = 0; a < rows.GetLength(0); a++) if (rows[a] > 0) clearRow(rows[a]-1);
             for (int a = 0; a < columns.GetLength(0); a++) if (columns[a] > 0) clearColumn(columns[a]-1);
             for (int a = 0; a < blocks.GetLength(0); a += 2) if (blocks[a] > 0) clearBlock(blocks[a]-1, blocks[a + 1]-1);
+
+            return 9 * combo + combo * combo - penalty;
         }
 
         public void clearRow(int i)
