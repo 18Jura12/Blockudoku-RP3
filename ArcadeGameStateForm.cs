@@ -17,6 +17,16 @@ namespace Blockudoku
             InitializeComponent();
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle = cp.ExStyle | 0x2000000;
+                return cp;
+            }
+        }
+
         private void back_button_Click(object sender, EventArgs e)
         {
             Program.stateManager.Transition(new MainMenuStateForm());

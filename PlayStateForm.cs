@@ -130,16 +130,6 @@ namespace Blockudoku
             return minos;
         }
 
-        /*
-        private void pictureBox_game_Paint(object sender, PaintEventArgs e)
-        {            
-            SuspendLayout();
-            net.crtajPlocu(e.Graphics, pictureBox_game.Width, pictureBox_game.Height);
-            ResumeLayout();
-
-            pictureBox_game.Invalidate();
-        }
-        */
 
         private void pictureBox_grid_Paint(object sender, PaintEventArgs e)
         {
@@ -499,55 +489,5 @@ namespace Blockudoku
             label_timer.Text = "Timer: " + counter + "s";
         }
 
-        /*
-        private void pictureBox_shapes_Paint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.Clear(Color.AntiqueWhite);
-            pictureBox_shapes.Update();
-            SuspendLayout();
-
-            if (minos == null)
-            {
-                MessageBox.Show("null vrijednost");
-            }
-            else
-            {
-                //MessageBox.Show(minos[2].Stavljen.ToString());
-                if (!minos[0].Stavljen && !minos[1].Stavljen && !minos[2].Stavljen)
-                {
-                    minos = makeMinos();
-                }
-
-                int blockSize;                
-
-                if (pictureBox_shapes.Width < pictureBox_shapes.Height)
-                {
-                    // 4/5 groupBox / 15
-                    blockSize = Convert.ToInt32(Math.Min(pictureBox_shapes.Width, pictureBox_shapes.Height) * 4 / 75);                    
-                } else
-                {
-                    // 4/5 groupBox / 5
-                    blockSize = Convert.ToInt32(Math.Min(pictureBox_shapes.Width, pictureBox_shapes.Height) * 4 / 25);
-
-                    // out of border
-                    if (blockSize * 15 > pictureBox_shapes.Width )
-                    {
-                        blockSize = pictureBox_shapes.Width / 15;
-                    }
-                }
-
-                int startY = (pictureBox_shapes.Height - blockSize * 5) / 2;
-                int startX = (pictureBox_shapes.Width - blockSize * 15) / 2;
-
-                minos[0].crtaj(e.Graphics, startX, startY, blockSize);
-                minos[1].crtaj(e.Graphics, startX + 5 * blockSize, startY, blockSize);
-                minos[2].crtaj(e.Graphics, startX + 10 * blockSize, startY, blockSize);
-            }
-
-            ResumeLayout();
-            pictureBox_shapes.Invalidate();
-
-        }
-        */
     }
 }
