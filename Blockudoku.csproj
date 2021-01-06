@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArcadeGameStateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArcadeGameStateForm.Designer.cs">
+      <DependentUpon>ArcadeGameStateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -103,6 +109,15 @@
     <Compile Include="TopScoresStateForm.Designer.cs">
       <DependentUpon>TopScoresStateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UnlockLevelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UnlockLevelForm.Designer.cs">
+      <DependentUpon>UnlockLevelForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ArcadeGameStateForm.resx">
+      <DependentUpon>ArcadeGameStateForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainMenuStateForm.resx">
       <DependentUpon>MainMenuStateForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -133,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TopScoresStateForm.resx">
       <DependentUpon>TopScoresStateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UnlockLevelForm.resx">
+      <DependentUpon>UnlockLevelForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

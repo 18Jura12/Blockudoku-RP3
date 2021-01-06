@@ -92,3 +92,5 @@ C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\basbaspravi\Blockudoku-RP3\obj\Debug\Block
 C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\basbaspravi\Blockudoku-RP3\obj\Debug\Blockudoku.csprojAssemblyReference.cache
 C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.RulesStateForm.resources
 C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.TopScoresStateForm.resources
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.UnlockLevelForm.resources
+C:\Users\JUTEO\Desktop\FOLDERI\RP3-VS\Blockudoku-RP3\obj\Debug\Blockudoku.ArcadeGameStateForm.resources

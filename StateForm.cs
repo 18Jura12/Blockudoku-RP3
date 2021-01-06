@@ -13,7 +13,7 @@ namespace Blockudoku
     public partial class StateForm : Form
     {
 
-        public int level { get; set; }
+        public static int level { get; set; }
         public bool timed { get; set; }
         public bool obstacles { get; set; }
         public int score { get; set; }

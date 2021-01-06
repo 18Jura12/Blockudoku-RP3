@@ -35,7 +35,6 @@ namespace Blockudoku
         private void obstacles_checkBox_CheckedChanged(object sender, EventArgs e)
         {
             this.obstacles = this.obstacles_checkBox.Checked;
-
         }
 
         private void theme_comboBox_SelectedIndexChanged(object sender, EventArgs e)

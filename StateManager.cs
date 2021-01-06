@@ -20,7 +20,6 @@ namespace Blockudoku
 
         public void Transition(StateForm NewState)
         {
-            NewState.level = CurrentState.level;
             NewState.timed = CurrentState.timed;
             NewState.obstacles = CurrentState.obstacles;
             NewState.colorBlocks = CurrentState.colorBlocks;

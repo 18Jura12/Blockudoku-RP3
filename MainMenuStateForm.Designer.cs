@@ -55,13 +55,12 @@ namespace Blockudoku
             this.main_menu_panel.Controls.Add(this.standard_game_button, 0, 0);
             this.main_menu_panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.main_menu_panel.Location = new System.Drawing.Point(0, 0);
-            this.main_menu_panel.Margin = new System.Windows.Forms.Padding(4);
             this.main_menu_panel.Name = "main_menu_panel";
             this.main_menu_panel.RowCount = 3;
             this.main_menu_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.main_menu_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.main_menu_panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.main_menu_panel.Size = new System.Drawing.Size(1067, 554);
+            this.main_menu_panel.Size = new System.Drawing.Size(800, 450);
             this.main_menu_panel.TabIndex = 0;
             // 
             // unlock_level_button
@@ -72,13 +71,13 @@ namespace Blockudoku
             this.unlock_level_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.unlock_level_button.Font = new System.Drawing.Font("Papyrus", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.unlock_level_button.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.unlock_level_button.Location = new System.Drawing.Point(680, 424);
-            this.unlock_level_button.Margin = new System.Windows.Forms.Padding(4);
+            this.unlock_level_button.Location = new System.Drawing.Point(510, 345);
             this.unlock_level_button.Name = "unlock_level_button";
-            this.unlock_level_button.Size = new System.Drawing.Size(240, 74);
+            this.unlock_level_button.Size = new System.Drawing.Size(180, 60);
             this.unlock_level_button.TabIndex = 5;
             this.unlock_level_button.Text = "Unlock level";
             this.unlock_level_button.UseVisualStyleBackColor = true;
+            this.unlock_level_button.Click += new System.EventHandler(this.unlock_level_button_Click);
             // 
             // options_button
             // 
@@ -88,10 +87,9 @@ namespace Blockudoku
             this.options_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.options_button.Font = new System.Drawing.Font("Papyrus", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.options_button.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.options_button.Location = new System.Drawing.Point(146, 424);
-            this.options_button.Margin = new System.Windows.Forms.Padding(4);
+            this.options_button.Location = new System.Drawing.Point(110, 345);
             this.options_button.Name = "options_button";
-            this.options_button.Size = new System.Drawing.Size(240, 74);
+            this.options_button.Size = new System.Drawing.Size(180, 60);
             this.options_button.TabIndex = 4;
             this.options_button.Text = "Options";
             this.options_button.UseVisualStyleBackColor = true;
@@ -105,10 +103,9 @@ namespace Blockudoku
             this.top_scores_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.top_scores_button.Font = new System.Drawing.Font("Papyrus", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.top_scores_button.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.top_scores_button.Location = new System.Drawing.Point(680, 239);
-            this.top_scores_button.Margin = new System.Windows.Forms.Padding(4);
+            this.top_scores_button.Location = new System.Drawing.Point(510, 195);
             this.top_scores_button.Name = "top_scores_button";
-            this.top_scores_button.Size = new System.Drawing.Size(240, 74);
+            this.top_scores_button.Size = new System.Drawing.Size(180, 60);
             this.top_scores_button.TabIndex = 3;
             this.top_scores_button.Text = "Top scores";
             this.top_scores_button.UseVisualStyleBackColor = true;
@@ -122,10 +119,9 @@ namespace Blockudoku
             this.rules_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rules_button.Font = new System.Drawing.Font("Papyrus", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rules_button.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.rules_button.Location = new System.Drawing.Point(146, 239);
-            this.rules_button.Margin = new System.Windows.Forms.Padding(4);
+            this.rules_button.Location = new System.Drawing.Point(110, 195);
             this.rules_button.Name = "rules_button";
-            this.rules_button.Size = new System.Drawing.Size(240, 74);
+            this.rules_button.Size = new System.Drawing.Size(180, 60);
             this.rules_button.TabIndex = 2;
             this.rules_button.Text = "Rules";
             this.rules_button.UseVisualStyleBackColor = true;
@@ -139,13 +135,13 @@ namespace Blockudoku
             this.arcade_game_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.arcade_game_button.Font = new System.Drawing.Font("Papyrus", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.arcade_game_button.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.arcade_game_button.Location = new System.Drawing.Point(680, 55);
-            this.arcade_game_button.Margin = new System.Windows.Forms.Padding(4);
+            this.arcade_game_button.Location = new System.Drawing.Point(510, 45);
             this.arcade_game_button.Name = "arcade_game_button";
-            this.arcade_game_button.Size = new System.Drawing.Size(240, 74);
+            this.arcade_game_button.Size = new System.Drawing.Size(180, 60);
             this.arcade_game_button.TabIndex = 1;
             this.arcade_game_button.Text = "Arcade game";
             this.arcade_game_button.UseVisualStyleBackColor = true;
+            this.arcade_game_button.Click += new System.EventHandler(this.arcade_game_button_Click);
             // 
             // standard_game_button
             // 
@@ -155,10 +151,9 @@ namespace Blockudoku
             this.standard_game_button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.standard_game_button.Font = new System.Drawing.Font("Papyrus", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.standard_game_button.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.standard_game_button.Location = new System.Drawing.Point(146, 55);
-            this.standard_game_button.Margin = new System.Windows.Forms.Padding(4);
+            this.standard_game_button.Location = new System.Drawing.Point(110, 45);
             this.standard_game_button.Name = "standard_game_button";
-            this.standard_game_button.Size = new System.Drawing.Size(240, 74);
+            this.standard_game_button.Size = new System.Drawing.Size(180, 60);
             this.standard_game_button.TabIndex = 0;
             this.standard_game_button.Text = "Standard game";
             this.standard_game_button.UseVisualStyleBackColor = true;
@@ -166,15 +161,15 @@ namespace Blockudoku
             // 
             // MainMenuStateForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.main_menu_panel);
             this.DoubleBuffered = true;
             this.Location = new System.Drawing.Point(0, 0);
-            this.Margin = new System.Windows.Forms.Padding(5);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainMenuStateForm";
             this.Text = "MainMenuForm";
             this.main_menu_panel.ResumeLayout(false);

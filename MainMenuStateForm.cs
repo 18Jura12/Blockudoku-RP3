@@ -12,6 +12,7 @@ namespace Blockudoku
 {
     public partial class MainMenuStateForm : StateForm
     {
+        public static List<int> levels = new List<int> {6548, 1868, 1576, 3958};
         public MainMenuStateForm()
         {
             InitializeComponent();
@@ -51,6 +52,17 @@ namespace Blockudoku
         private void top_scores_button_Click(object sender, EventArgs e)
         {
             Program.stateManager.Transition(new TopScoresStateForm());
+        }
+
+        private void unlock_level_button_Click(object sender, EventArgs e)
+        {
+            UnlockLevelForm form = new UnlockLevelForm();
+            form.ShowDialog();
+        }
+
+        private void arcade_game_button_Click(object sender, EventArgs e)
+        {
+            Program.stateManager.Transition(new ArcadeGameStateForm());
         }
     }
 }
