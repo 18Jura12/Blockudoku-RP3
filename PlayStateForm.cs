@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Blockudoku
 {
@@ -18,6 +19,11 @@ namespace Blockudoku
         Mino selected;
         int spaceX;
         int spaceY;
+
+        Timer timer;
+        int counter;
+
+        List<int> scores;
 
         public PlayStateForm()
         {
@@ -30,8 +36,7 @@ namespace Blockudoku
             spaceY = 0;
             score = 0;
 
-            //mislim da to ne radi
-            this.tableLayoutPanel_game.BackColor = this.colorBackground;
+           
         }
 
         protected override CreateParams CreateParams
@@ -46,6 +51,13 @@ namespace Blockudoku
 
         List<Mino> makeMinos()
         {
+            //timer stuff
+            if (this.timed)
+            {
+                timer.Stop();
+                resetTimer();
+            }
+
             List<Mino> minos = new List<Mino>(3);
 
             int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 16);
@@ -311,7 +323,10 @@ namespace Blockudoku
                     resizeMinos();
 
                 }
-                if (isEnd()) Program.stateManager.Transition(new PlayStateForm());
+                if (isEnd())
+                {
+                    endMessage();
+                }
             }
             else
             {
@@ -340,9 +355,148 @@ namespace Blockudoku
             return end; ;
         }
 
+        private void resetTimer()
+        {
+            timer.Interval = 1000; // 1 second
+            timer.Start();
+            counter = 10;
+            label_timer.Text = "Timer: " + counter + "s";
+        }
+
+        private void getScores()
+        {
+            scores = new List<int>(10);
+
+            string basePath = Environment.CurrentDirectory;
+            //out of bin\Debug
+            string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\"));
+
+            Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
+            Console.WriteLine($"new directory:\n   {newPath}");
+
+            newPath += "top10.txt";
+            Console.WriteLine($"new directory:\n   {newPath}");
+
+            try
+            {
+                // Open the text file using a stream reader.
+                using (var sr = new StreamReader(newPath))
+                {
+                    while (sr.Peek() >= 0)
+                    {
+                        scores.Add(Convert.ToInt32(sr.ReadLine()));
+                    }
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(ex.Message);
+            }
+
+            /*
+            foreach( var line in scores )
+            {
+                Console.WriteLine(line.ToString());
+            }
+            */
+        }
+
         private void PlayStateForm_Load(object sender, EventArgs e)
         {
+            getScores();
+
+            if (this.timed)
+            {
+                timer = new Timer();
+                timer.Tick += new EventHandler(timer_Tick);
+                resetTimer();
+            }
+            else
+            {
+                label_timer.Text = "";
+            }
+            this.tableLayoutPanel_game.BackColor = this.colorBackground;
             resizeMinos();
+        }
+
+        private void updateScores()
+        {
+            string basePath = Environment.CurrentDirectory;
+            //out of bin\Debug
+            string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\"));
+
+            Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
+            Console.WriteLine($"new directory:\n   {newPath}");
+
+            newPath += "top10.txt";
+            Console.WriteLine($"new directory:\n   {newPath}");
+
+            try
+            {
+                //Pass the filepath and filename to the StreamWriter Constructor
+                StreamWriter sw = new StreamWriter(newPath);
+
+                foreach (var sc in scores)
+                {
+                    sw.WriteLine(sc.ToString());
+                }
+
+                //Close the file
+                sw.Close();
+
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine("Can't write in file.");
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private bool checkTop10()
+        {
+            var myScore = this.score;
+            for (int i = 0; i < scores.Count; i++)
+            {
+                if (myScore >= scores[i])
+                {
+                    scores.RemoveAt(scores.Count - 1);
+                    scores.Insert(i, myScore);
+                    updateScores();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void endMessage()
+        {
+            var newHeighScore = checkTop10();
+            string message = "Game Over!" + System.Environment.NewLine + "Your score: " + this.score;
+            if (newHeighScore)
+            {
+                message += Environment.NewLine;
+                message += "Score in Top10!";
+            }
+            const string caption = "Game over";
+            var ok = MessageBox.Show(message, caption, MessageBoxButtons.OK);
+
+            if (ok == DialogResult.OK)
+            {
+                Program.stateManager.Transition(new MainMenuStateForm());
+            }
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (counter == 0)
+            {
+                timer.Stop();
+                endMessage();
+            }
+            --counter;
+            label_timer.Text = "Timer: " + counter + "s";
         }
 
         /*
