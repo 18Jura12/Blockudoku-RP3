@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Blockudoku
 {
@@ -41,12 +42,29 @@ namespace Blockudoku
             {
                 for (int j = 0; j < n; j++)
                 {
-                    grafika.DrawRectangle(Pens.DarkCyan, i * velicinaBloka + startX, j * velicinaBloka + startY, velicinaBloka, velicinaBloka);
                     //grafika.DrawRectangle(Pens.DarkBlue, i * velicinaBloka + 5, j * velicinaBloka + 5, velicinaBloka, velicinaBloka);
                     if (ploca[i, j] > 0)
                     {
-                        grafika.FillRectangle(new SolidBrush(color), new Rectangle(i * velicinaBloka + startX, j * velicinaBloka + startY, velicinaBloka, velicinaBloka));
+                        var brush = ploca[i, j] > 1 ? new SolidBrush(Color.DimGray) : new SolidBrush(color);
+                        grafika.FillRectangle(brush, new Rectangle(i * velicinaBloka + startX, j * velicinaBloka + startY, velicinaBloka, velicinaBloka));
+                    }
 
+                    if (ploca[i, j] > 1)
+                    {
+                        Font font = new Font("Papyrus", 16, FontStyle.Bold, GraphicsUnit.Point);
+                        RectangleF rect = new Rectangle(i * velicinaBloka + startX, j * velicinaBloka + startY, velicinaBloka, velicinaBloka);
+                        //TextRenderer.DrawText(grafika, ploca[i, j].ToString(), font, rect, Color.Orange, TextFormatFlags.VerticalCenter);
+
+                        StringFormat sf = new StringFormat();
+                        sf.LineAlignment = StringAlignment.Center;
+                        sf.Alignment = StringAlignment.Center;
+
+                        grafika.DrawString(ploca[i, j].ToString(), font, new SolidBrush(Color.Orange), rect, sf);
+                        grafika.DrawRectangle(Pens.DarkCyan, Rectangle.Round(rect));
+                    }
+                    else
+                    {
+                        grafika.DrawRectangle(Pens.DarkCyan, i * velicinaBloka + startX, j * velicinaBloka + startY, velicinaBloka, velicinaBloka);
                     }
                 }
             }
@@ -134,6 +152,7 @@ namespace Blockudoku
             int combo = 0;
             //added up penalties that are given for every obstacle that the full area contains
             int penalty = 0;
+            int temp_pen = 0;
 
             //remembers which row/col/block is full
             int[] rows = new int[9];
@@ -148,34 +167,45 @@ namespace Blockudoku
                 {
                     if (ploca[j, i] == 0) 
                     {
-                        full = false; break;
+                        full = false;
+                        temp_pen = 0;
+                        break;
                     } else
                     {
-                        //correct since filled rectangle other than an obstacle is marked with value '1'
-                        penalty += ploca[j, i] - 1;
+                        temp_pen += ploca[j, i] > 1 ? ploca[j, i] : 0;           
                     }
                 }
                 if (full)
                 {
                     //Console.WriteLine("row {0} full.", i);
                     rows[counter] = i+1; counter++; combo++;
+                    penalty += temp_pen;
                 }
             }
-            counter = 0;
+            counter = temp_pen = 0; 
 
             //check for full columns
             for (int i = 0; i < ploca.GetLength(0); i++)
             {
                 full = true;
                 for (int j = 0; j < ploca.GetLength(1); j++)
-                    if (ploca[i, j] == 0) { full = false; break; }
+                    if (ploca[i, j] == 0) 
+                    { 
+                        full = false;
+                        temp_pen = 0;
+                        break;
+                    } else
+                    {
+                        temp_pen += ploca[i, j] > 1 ? ploca[i, j] : 0;
+                    }
                 if (full)
                 {
                     //Console.WriteLine("col {0} full.", i);
                     columns[counter] = i+1; counter++; combo++;
+                    penalty += temp_pen;
                 }
             }
-            counter = 0;
+            counter = temp_pen = 0;
 
             //check for full blocks
             for (int i = 0; i < ploca.GetLength(0); i += 3)
@@ -186,7 +216,15 @@ namespace Blockudoku
                     for (int k = i; k < i + 3; k++)
                         for (int l = j; l < j + 3; l++)
                         {
-                            if (ploca[k, l] == 0) { full = false; break; }
+                            if (ploca[k, l] == 0) 
+                            { 
+                                full = false;
+                                temp_pen = 0;
+                                break; 
+                            } else
+                            {
+                                temp_pen += ploca[k, l] > 1 ? ploca[k, l] : 0;
+                            }
                             if (full == false) break;
                         }
                     if (full)
@@ -195,6 +233,7 @@ namespace Blockudoku
                         blocks[counter] = i+1; counter++;
                         blocks[counter] = j+1; counter++;
                         combo ++;
+                        penalty += temp_pen;
                     }
                 }
             }

@@ -295,7 +295,7 @@ namespace Blockudoku
                 {
                     if (selected.sadrzaj[i, j])
                     {
-                        if (i + colS > 8 || i + colS < 0 || j + rowS > 8 || j + rowS < 0 || net.Ploca[i + colS, j + rowS] == 1)
+                        if (i + colS > 8 || i + colS < 0 || j + rowS > 8 || j + rowS < 0 || net.Ploca[i + colS, j + rowS] > 0)
                         {
                             possible = false;
                         }
@@ -331,7 +331,13 @@ namespace Blockudoku
 
         private void button_back_Click(object sender, EventArgs e)
         {
-            Program.stateManager.Transition(new MainMenuStateForm());
+            if(arcade > 0)
+            {
+                Program.stateManager.Transition(new ArcadeGameStateForm());
+            } else
+            {
+                Program.stateManager.Transition(new MainMenuStateForm());
+            }
         }
 
         private bool isEnd()
@@ -446,6 +452,12 @@ namespace Blockudoku
             {
                 label_timer.Text = "";
             }
+
+            if(this.obstacles)
+            {
+                generateObstacles();
+            }
+
             this.tableLayoutPanel_game.BackColor = this.colorBackground;
             resizeMinos();
         }
@@ -453,6 +465,26 @@ namespace Blockudoku
         private void prepareState(int target_score)
         {
             this.desired_score_label.Text = "Level " + arcade.ToString() + "\n\nTarget score: " + target_score.ToString();
+        }
+
+        private void generateObstacles()
+        {
+            Random rand = new Random();
+            int x;
+            int y;
+            for (int i = 0; i < 8; i++)
+            {
+                while(true)
+                {
+                    x = rand.Next(0, 9);
+                    y = rand.Next(0, 9);
+                    if (net.Ploca[x, y] == 0)
+                    {
+                        net.Ploca[x, y] = arcade > 0 ? obstacles_generated : rand.Next(2, obstacles_generated + 1);
+                        break;
+                    }
+                }
+            }
         }
 
         private void updateScores()

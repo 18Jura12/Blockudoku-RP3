@@ -30,7 +30,7 @@ namespace Blockudoku
 
         private void back_button_Click(object sender, EventArgs e)
         {
-            Program.stateManager.Transition(new ArcadeGameStateForm());
+            Program.stateManager.Transition(new MainMenuStateForm());
         }
 
         private void ArcadeGameStateForm_Load(object sender, EventArgs e)
