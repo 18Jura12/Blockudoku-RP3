@@ -26,7 +26,7 @@ namespace Blockudoku
                 int newLevel = MainMenuStateForm.levels.LastIndexOf(Convert.ToInt32(this.unlock_level_textBox.Text));
                 if(newLevel != -1)
                 {
-                    MainMenuStateForm.level = newLevel + 2;
+                    if(newLevel + 2 > MainMenuStateForm.level) MainMenuStateForm.level = newLevel + 2;
                     this.outcome_label.ForeColor = Color.Green;
                     this.outcome_label.Text = "Success!";
 

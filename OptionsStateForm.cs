@@ -12,6 +12,7 @@ namespace Blockudoku
 {
     public partial class OptionsStateForm : StateForm
     {
+
         public OptionsStateForm()
         {
             InitializeComponent();
@@ -66,6 +67,24 @@ namespace Blockudoku
 
         private void OptionsStateForm_Load(object sender, EventArgs e)
         {
+            this.timed_checkBox.Checked = timed;
+            this.obstacles_checkBox.Checked = obstacles;
+
+            switch (colorBlocks.Name)
+            {
+                case "DarkBlue":
+                    this.theme_comboBox.SelectedIndex = 0;
+                    break;
+                case "DarkGreen":
+                    this.theme_comboBox.SelectedIndex = 1;
+                    break;
+                case "DarkOrchid":
+                    this.theme_comboBox.SelectedIndex = 2;
+                    break;
+                default:
+                    break;
+            }
+
             this.options_groupBox.Size = new System.Drawing.Size(this.Size.Width * 2/3, this.Size.Height * 4 / 5);
             this.options_groupBox.Location = new Point((this.Size.Width - this.options_groupBox.Size.Width) / 2, (this.Size.Height - this.options_groupBox.Size.Height) / 2);
             this.timed_checkBox.Location = new Point(this.options_groupBox.Location.X + this.options_groupBox.Size.Width / 10, this.options_groupBox.Location.Y + this.options_groupBox.Size.Height / 10);

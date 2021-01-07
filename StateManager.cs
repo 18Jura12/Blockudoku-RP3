@@ -36,6 +36,12 @@ namespace Blockudoku
             CurrentState = NewState;
         }
 
+        public void Transition(PlayStateForm NewState, int arcade)
+        {
+            NewState.Arcade = arcade;
+            Transition(NewState);
+        }
+
         public StateForm CurrentState { get; private set; }
     }
 }

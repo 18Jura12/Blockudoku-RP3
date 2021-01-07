@@ -25,6 +25,9 @@ namespace Blockudoku
 
         List<int> scores;
 
+        int arcade;
+        int obstacles_generated;
+
         public PlayStateForm()
         {
             InitializeComponent();
@@ -35,7 +38,8 @@ namespace Blockudoku
             spaceX = 0;
             spaceY = 0;
             score = 0;
-
+            arcade = 0;
+            obstacles_generated = 5;
            
         }
 
@@ -341,8 +345,9 @@ namespace Blockudoku
                     break;
                 }
             }
+            if (arcade != 0 && score >= arcade * 100) end = true;
             //Ovdje namjesti što se dogodi na kraju
-            return end; ;
+            return end;
         }
 
         private void resetTimer()
@@ -396,6 +401,41 @@ namespace Blockudoku
         {
             getScores();
 
+            switch (arcade)
+            {
+                case 1:
+                    timed = false;
+                    obstacles = false;
+                    prepareState(100);
+                    break;
+                case 2:
+                    timed = false;
+                    obstacles = true;
+                    obstacles_generated = 2;
+                    prepareState(200);
+                    break;
+                case 3:
+                    timed = true;
+                    obstacles = true;
+                    obstacles_generated = 3;
+                    prepareState(300);
+                    break;
+                case 4:
+                    timed = true;
+                    obstacles = true;
+                    obstacles_generated = 4;
+                    prepareState(400);
+                    break;
+                case 5:
+                    timed = true;
+                    obstacles = true;
+                    obstacles_generated = 5;
+                    prepareState(500);
+                    break;
+                default:
+                    break;
+            }
+
             if (this.timed)
             {
                 timer = new Timer();
@@ -408,6 +448,11 @@ namespace Blockudoku
             }
             this.tableLayoutPanel_game.BackColor = this.colorBackground;
             resizeMinos();
+        }
+
+        private void prepareState(int target_score)
+        {
+            this.desired_score_label.Text = "Level " + arcade.ToString() + "\n\nTarget score: " + target_score.ToString();
         }
 
         private void updateScores()
@@ -462,19 +507,42 @@ namespace Blockudoku
 
         private void endMessage()
         {
-            var newHeighScore = checkTop10();
-            string message = "Game Over!" + System.Environment.NewLine + "Your score: " + this.score;
-            if (newHeighScore)
+            string message;
+            if(arcade != 0)
             {
-                message += Environment.NewLine;
-                message += "Score in Top10!";
-            }
-            const string caption = "Game over";
-            var ok = MessageBox.Show(message, caption, MessageBoxButtons.OK);
+                if(score >= arcade*100)
+                {
+                    message = "Congratulations! :D \n Level unlocked: " + (arcade+1).ToString() +
+                        "\n Code: " + MainMenuStateForm.levels[arcade - 1];
+                    ArcadeGameStateForm.level = arcade + 1;
+                } else
+                {
+                    message = "You lost! :( \n Better luck next time!";
+                }
+                var ok = MessageBox.Show(message, "", MessageBoxButtons.OK);
+                
+                if(ok == DialogResult.OK)
+                {
+                    arcade = 0;
+                    Program.stateManager.Transition(new ArcadeGameStateForm());
+                }
 
-            if (ok == DialogResult.OK)
+            } else
             {
-                Program.stateManager.Transition(new MainMenuStateForm());
+                var newHeighScore = checkTop10();
+                message = "Game Over!" + System.Environment.NewLine + "Your score: " + this.score;
+                if (newHeighScore)
+                {
+                    message += Environment.NewLine;
+                    message += "Score in Top10!";
+                }
+                const string caption = "Game over";
+                var ok = MessageBox.Show(message, caption, MessageBoxButtons.OK);
+
+                if (ok == DialogResult.OK)
+                {
+                    Program.stateManager.Transition(new MainMenuStateForm());
+                }
             }
         }
 
@@ -487,6 +555,18 @@ namespace Blockudoku
             }
             --counter;
             label_timer.Text = "Timer: " + counter + "s";
+        }
+
+        public int Arcade
+        {
+            get
+            {
+                return arcade;
+            }
+            set
+            {
+                arcade = value;
+            }
         }
 
     }
