@@ -18,6 +18,9 @@ namespace Blockudoku
             CurrentState.Show();
         }
 
+        /*
+         * closes one form and opens wanted form with options from previous form
+         */
         public void Transition(StateForm NewState)
         {
             NewState.timed = CurrentState.timed;

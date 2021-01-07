@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace Blockudoku
 {
+    // represents TextBox with optional transparent background color
     public partial class CustomTextBox : TextBox
     {
         public CustomTextBox()
@@ -24,12 +25,12 @@ namespace Blockudoku
             BackColor = Color.Transparent;
         }
 
+        // transparent background so this method writes text in TextBox
         private void redrawText()
         {
             RectangleF rect = new RectangleF(1F, 1F, this.Width, this.Height);
             using (Graphics graphics = this.CreateGraphics())
             using (SolidBrush brush = new SolidBrush(this.ForeColor))
-                //graphics.DrawString(this.Text, this.Font, brush, 1, 1);
                 graphics.DrawString(this.Text, this.Font, brush, rect);
         }
 

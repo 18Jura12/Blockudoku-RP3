@@ -24,6 +24,9 @@ namespace Blockudoku
 
         }
 
+        /*
+         * Prevents flickering
+         */
         protected override CreateParams CreateParams
         {
             get

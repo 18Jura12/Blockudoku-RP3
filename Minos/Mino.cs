@@ -20,7 +20,7 @@ namespace Blockudoku
         //pocetna pozicija za crtanje 5x5 mreze
         int startX;
         int startY;
-        //ako jos nije stavljen na plocu je true, inace false OKRENI!!!!
+        //ako jos nije stavljen na plocu je true, inace false
         bool stavljen;
         //je li označen od strane miša ili ne
         bool isSelected;
@@ -73,21 +73,16 @@ namespace Blockudoku
             }
         }
 
-        // checks if coordinates (x,y) are on item; PROVJERI DAL RADI!!; radi
+        // checks if coordinates (x,y) are on item
         public bool onItem( int x, int y)
         {
-            //Console.WriteLine("x: " + x.ToString());
-            //Console.WriteLine("y:" + y.ToString());
-
             for (int i = 0; i < sadrzaj.GetLength(0) ; i++)
             {
                 for (int j = 0; j < sadrzaj.GetLength(1); j++)
                 {
                     if (sadrzaj[i, j])
                     {
-                        //Console.WriteLine("startX: " + (startX + i * blockSize).ToString() + " -- " + (startX + (i+1) * blockSize).ToString());
-                        //Console.WriteLine("startY:" + (startY + j * blockSize).ToString() + " -- " + (startY + (j+1) * blockSize).ToString());
-                        //Console.WriteLine("blockSize: " + blockSize.ToString());
+                        // if coordinates are over Mino
                         if (x >= (startX + i * blockSize) && x <= (startX + (i + 1) * blockSize) && y >= (startY + j * blockSize) && y <= (startY + (j + 1) * blockSize))
                         {
                             return true;
@@ -99,25 +94,18 @@ namespace Blockudoku
             return false;
         }
 
+        // updates coordinates of the selected Mino
         public void moveMino( int x, int y, int spaceX, int spaceY)
         {
-            //Console.WriteLine("spaceX: " + spaceX.ToString() + " ; spaceY: " + spaceY.ToString());
-            /*
-            this.X = x - (oc * 42);
-            this.Y = y - (or * 42);
-            */
-            // MOZDA OBRNUTO COL I ROW
-            //this.x = x - (minrow * blockSize);
-            //this.y = y - (mincol * blockSize);
-
+            // new position of Mino (old position minus (longitude of user click and old position)
             int moveX = x - spaceX;
             int moveY = y - spaceY;
-            //Console.WriteLine("pomakX: " + moveX.ToString());
 
             this.x = moveX;
             this.y = moveY;
         }
 
+        // move selected Mino to its start position
         public void resetPosition()
         {
             this.x = this.StartX;

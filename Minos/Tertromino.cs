@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Blockudoku
 {
+    // class which represents shape with four rectangles; letter T
+    // switch case represents rotations of shape
     class TetroT : Mino
     {
         public TetroT(int blockSize, int X, int Y) : base(blockSize, X, Y)
@@ -53,6 +55,8 @@ namespace Blockudoku
 
     }
 
+    // class which represents shape with four rectangles; letter Z
+    // switch case represents rotations of shape
     class TetroZ : Mino
     {
         public TetroZ(int blockSize, int X, int Y) : base(blockSize, X, Y)
@@ -99,6 +103,8 @@ namespace Blockudoku
         }
     }
 
+    // class which represents shape with four rectangles; vertical position
+    // switch case represents rotations of shape
     class TetroVertical : Mino
     {
         public TetroVertical(int blockSize, int X, int Y) : base(blockSize, X, Y)
@@ -128,6 +134,8 @@ namespace Blockudoku
         }
     }
 
+    // class which represents shape with four rectangles; letter L
+    // switch case represents rotations of shape
     class TetroL : Mino
     {
         public TetroL(int blockSize, int X, int Y) : base(blockSize, X, Y)

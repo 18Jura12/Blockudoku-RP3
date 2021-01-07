@@ -12,12 +12,17 @@ namespace Blockudoku
 {
     public partial class StateForm : Form
     {
-
+        // 
         public static int level { get; set; }
+        // game with time; true/false
         public bool timed { get; set; }
+        //game with obstacles; true/false
         public bool obstacles { get; set; }
+        // score in game
         public int score { get; set; }
+        // color of blocks in grid
         public Color colorBlocks { get; set; }
+        //background color
         public Color colorBackground { get; set; }
 
         public StateForm()

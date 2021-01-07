@@ -10,11 +10,11 @@ namespace Blockudoku
 {
     class Grid
     {
-        int n = 9; //broj blokova
-        int velicinaBloka = 50; // velicina bloka u pixelima
-        int sirina = 450;
-        int visina = 450;
-        int[,] ploca;
+        int n = 9; // number of blocks in grid
+        int velicinaBloka = 50; // blockSize
+        int sirina = 450; //width
+        int visina = 450; //height
+        int[,] ploca; // matrix which represents grid
 
         public Grid()
         {
@@ -30,11 +30,15 @@ namespace Blockudoku
             this.ploca = new int[n, n];
         }
 
+        /*
+         * Draws grid on PlayStateForm
+         */
         public void crtajPlocu(Graphics grafika, int sirina, int visina, Color color, Color background)
         {
             grafika.Clear(background);
             grafika.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
+            // centered grid
             int startX = (sirina - velicinaBloka * 9) / 2;
             int startY = (visina - velicinaBloka * 9) / 5;
 
@@ -42,13 +46,14 @@ namespace Blockudoku
             {
                 for (int j = 0; j < n; j++)
                 {
-                    //grafika.DrawRectangle(Pens.DarkBlue, i * velicinaBloka + 5, j * velicinaBloka + 5, velicinaBloka, velicinaBloka);
+                    // if grid contains block; fill rectangle
                     if (ploca[i, j] > 0)
                     {
                         var brush = ploca[i, j] > 1 ? new SolidBrush(Color.DimGray) : new SolidBrush(color);
                         grafika.FillRectangle(brush, new Rectangle(i * velicinaBloka + startX, j * velicinaBloka + startY, velicinaBloka, velicinaBloka));
                     }
 
+                    // grid contains obstacle; fill rectangle
                     if (ploca[i, j] > 1)
                     {
                         Font font = new Font("Papyrus", 16, FontStyle.Bold, GraphicsUnit.Point);
@@ -62,6 +67,7 @@ namespace Blockudoku
                         grafika.DrawString(ploca[i, j].ToString(), font, new SolidBrush(Color.Orange), rect, sf);
                         grafika.DrawRectangle(Pens.DarkCyan, Rectangle.Round(rect));
                     }
+                    // empty cell in grid; no fill
                     else
                     {
                         grafika.DrawRectangle(Pens.DarkCyan, i * velicinaBloka + startX, j * velicinaBloka + startY, velicinaBloka, velicinaBloka);
@@ -127,6 +133,9 @@ namespace Blockudoku
             }
         }
 
+        /*
+         * updates board with selected Mino
+         */
         public void putOnBoard(int col, int row, Mino mino)
         {
             for (int i = 0; i < 5; i++)

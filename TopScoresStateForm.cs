@@ -16,10 +16,12 @@ namespace Blockudoku
         public TopScoresStateForm()
         {
             InitializeComponent();
-            //textBox_Scores.Enter += (s, e) => { textBox_Scores.Parent.Focus(); };
             customTextBox_topTen.Enter += (s, e) => { customTextBox_topTen.Parent.Focus(); };
         }
 
+        /*
+         * Prevents flickering
+         */
         protected override CreateParams CreateParams
         {
             get
@@ -30,6 +32,9 @@ namespace Blockudoku
             }
         }
 
+        /*
+         * Update size of objects on form
+         */
         private void TopScoresStateForm_SizeChanged(object sender, EventArgs e)
         {
             this.groupBox_Scores.Width = this.Width * 2 / 3;
@@ -68,22 +73,27 @@ namespace Blockudoku
             this.button_Scores_back.Location = new Point(x3, y3);
         }
 
+        /*
+         * back to Main Menu through back button
+         */
         private void button_Scores_back_Click(object sender, EventArgs e)
         {
             Program.stateManager.Transition(new MainMenuStateForm());
         }
 
+        /*
+         * Gets 10 scores from file and writes them in CustomTextBox
+         */
         private void TopScoresStateForm_Load(object sender, EventArgs e)
         {
             string basePath = Environment.CurrentDirectory;
             //out of bin\Debug
             string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\"));
 
-            Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
-            Console.WriteLine($"new directory:\n   {newPath}");
+            //Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
+            //Console.WriteLine($"new directory:\n   {newPath}");
 
             newPath += "top10.txt";
-            Console.WriteLine($"new directory:\n   {newPath}");
 
             try
             {
@@ -97,8 +107,6 @@ namespace Blockudoku
                     while (sr.Peek() >= 0)
                     {
                         this.customTextBox_topTen.AppendText(i.ToString() + ".\t" + sr.ReadLine() + Environment.NewLine);
-                        //this.textBox_Scores.AppendText(i.ToString() + ".\t" + sr.ReadLine() + Environment.NewLine);
-                        //Console.WriteLine(sr.ReadLine());
                         ++i;
                     }
                 }

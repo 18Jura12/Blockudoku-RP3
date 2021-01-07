@@ -166,7 +166,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\simple-blue-background.jpg" />
     <None Include="Resources\simple-blue-background1.jpg" />
     <Content Include="top10.txt" />
   </ItemGroup>

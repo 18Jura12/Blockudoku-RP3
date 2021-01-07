@@ -18,6 +18,9 @@ namespace Blockudoku
             InitializeComponent();
         }
 
+        /*
+         * Prevents flickering background
+         */
         protected override CreateParams CreateParams
         {
             get
@@ -38,10 +41,11 @@ namespace Blockudoku
             this.obstacles = this.obstacles_checkBox.Checked;
         }
 
+        /*
+         * Depending on the index, method selects background color and color of blocks in grid
+         */
         private void theme_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //this.theme = this.theme_comboBox.SelectedIndex;
-
             switch (this.theme_comboBox.SelectedIndex)
             {
                 case 0:
@@ -57,9 +61,11 @@ namespace Blockudoku
                     this.colorBackground = System.Drawing.Color.LavenderBlush;
                     break;
             }
-            //Console.WriteLine(this.colorBackground);
         }
 
+        /*
+         * Go back to Main Menu through back button
+         */
         private void back_button_Click(object sender, EventArgs e)
         {
             Program.stateManager.Transition(new MainMenuStateForm());

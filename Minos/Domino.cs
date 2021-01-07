@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Blockudoku
 {
+    // class which represents shape with two rectangles; vertical position
+    // switch case represents rotations of shape
     class DoVertical : Mino
     {
         public DoVertical(int blockSize, int X, int Y) : base(blockSize, X, Y)
@@ -30,6 +32,8 @@ namespace Blockudoku
         }
     }
 
+    // class which represents shape with two rectangles; diagonal position
+    // switch case represents rotations of shape
     class DoDiag : Mino
     {
         public DoDiag(int blockSize, int X, int Y) : base(blockSize, X, Y)

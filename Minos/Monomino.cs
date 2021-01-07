@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blockudoku.Minos
 {
+    // class which represents shape with one rectangle
     class Mono : Mino
     {
         public Mono(int blockSize, int X, int Y) : base(blockSize, X, Y)

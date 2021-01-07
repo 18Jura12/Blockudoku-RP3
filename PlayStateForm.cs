@@ -12,20 +12,34 @@ using System.IO;
 
 namespace Blockudoku
 {
+    /*
+     * Represents game which user started
+     */
     public partial class PlayStateForm : StateForm
     {
+        // Three Mino which user must put on the grid
         List<Mino> minos;
+        // Sudoku grid
         Grid net;
+        // User selected some Mino
         Mino selected;
+
+        // coordinates of mouse click
         int spaceX;
         int spaceY;
 
+        // Timer
         Timer timer;
+        // represents number of seconds for putting three Minos on board
         int counter;
 
+        // top10 scores
         List<int> scores;
 
+        // represents level
         int arcade;
+
+        // obstacles
         int obstacles_generated;
 
         public PlayStateForm()
@@ -43,6 +57,9 @@ namespace Blockudoku
            
         }
 
+        /*
+         * Prevents flickering
+         */
         protected override CreateParams CreateParams
         {
             get
@@ -53,6 +70,9 @@ namespace Blockudoku
             }
         }
 
+        /*
+         * Makes three instances of randomly selected Minos
+         */
         List<Mino> makeMinos()
         {
             //timer stuff
@@ -70,17 +90,16 @@ namespace Blockudoku
 
             for (int i = 0; i < 3; i++)
             {
-                //minos.Add(new Mono(45, 500, i*150));
-
                 int randNum = rand.Next(0, 4);
-                //MessageBox.Show(randNum.ToString());
 
                 switch (randNum)
                 {
+                    //Monomino
                     case 0:
                         //minos.Add(new Mono(50, startX[i], startY));
                         minos.Add(new Mono(blockSize, 500, i * 200));
                         break;
+                    // DoMino
                     case 1:
                         randNum = rand.Next(0, 2);
                         switch (randNum)
@@ -94,6 +113,7 @@ namespace Blockudoku
                                 break;
                         }
                         break;
+                    // TriMino
                     case 2:
                         randNum = rand.Next(0, 3);
                         switch (randNum)
@@ -109,6 +129,7 @@ namespace Blockudoku
                                 break;
                         }
                         break;
+                    // TetroMino
                     case 3:
                         randNum = rand.Next(0, 4);
                         switch (randNum)
@@ -134,11 +155,15 @@ namespace Blockudoku
             return minos;
         }
 
-
+        /*
+         * Draws grid and Minos on the PlayStateForm
+         */
         private void pictureBox_grid_Paint(object sender, PaintEventArgs e)
         {
+            //for optimization
             SuspendLayout();
-            //Console.WriteLine(this.colorBackground);
+            
+            // draws grid
             net.crtajPlocu(e.Graphics, pictureBox_grid.Width, pictureBox_grid.Height, this.colorBlocks, this.colorBackground);
 
             if (minos == null)
@@ -147,18 +172,14 @@ namespace Blockudoku
             }
             else
             {
-                //MessageBox.Show(minos[2].Stavljen.ToString());
-
-                //smaller than original 15-->16
+                //smaller than original 15-->16 (blockSize of Minos in threesome)
                 int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 16);
 
-                //int startY = (pictureBox_grid.Height - blockSize * 5) / 2;
-
-                //int startY = (pictureBox_grid.Height - blockSize2 * 9);
-                //int startY = (visina - velicinaBloka * 9) / 5; iz grida
+                //position where drawing starts; centered
                 int startY = net.Visina + (pictureBox_grid.Height - blockSize * 9) / 5;
                 int startX = (pictureBox_grid.Width - blockSize * 15) / 2;
 
+                // draws Minos which user puts on grid
                 if (minos[0].Stavljen) minos[0].crtaj(e.Graphics, startX, startY, blockSize, this.colorBlocks);
                 if (minos[1].Stavljen) minos[1].crtaj(e.Graphics, startX + 5 * blockSize, startY, blockSize, this.colorBlocks);
                 if (minos[2].Stavljen) minos[2].crtaj(e.Graphics, startX + 10 * blockSize, startY, blockSize, this.colorBlocks);
@@ -167,17 +188,15 @@ namespace Blockudoku
             ResumeLayout();
 
             pictureBox_grid.Invalidate();
-
         }
 
+        /*
+         * Resize objects on Form
+         */
         private void PlayStateForm_SizeChanged(object sender, EventArgs e)
         {
-            
-
             if ( net != null )
             {
-                //Console.WriteLine(b.GetValue(0).ToString());
-
                 pictureBox_grid.Width = Convert.ToInt32(tableLayoutPanel_game.GetColumnWidths().GetValue(1));
                 pictureBox_grid.Height = 4 * Convert.ToInt32(tableLayoutPanel_game.GetRowHeights().GetValue(0));
 
@@ -186,22 +205,25 @@ namespace Blockudoku
                 net.Sirina = blockSize * 9;
                 net.Visina = blockSize * 9;
                 net.VelicinaBloka = blockSize;
-                
             }
 
-            // mozda dodat još i mijenjanje startX i startY od svakog minos-a; PROVJERI!!
             if( minos != null )
             {
+                //change size of minos, because form changed its size
                 resizeMinos();
             } 
         }
 
+        /*
+         * Resizes Minos according to the form size
+         */
         public void resizeMinos()
         {
+            //width and height of pictureBox in which grid and minos are drawn
             pictureBox_grid.Width = Convert.ToInt32(tableLayoutPanel_game.GetColumnWidths().GetValue(1));
             pictureBox_grid.Height = Convert.ToInt32(tableLayoutPanel_game.GetRowHeights().GetValue(0));
 
-            //smaller than original 15-->18
+            //smaller than original 15-->16
             int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 16);
             int startY = net.Visina + (pictureBox_grid.Height - blockSize * 9) / 5;
             int startX = (pictureBox_grid.Width - blockSize * 15) / 2;
@@ -218,20 +240,24 @@ namespace Blockudoku
             }
         }        
 
+        /*
+         * When user releases left mouse button, method checks if selected Mino can be put on board
+         */
         private void pictureBox_grid_MouseUp(object sender, MouseEventArgs e)
         {
-            //mis drzi neki mino
+            // Mouse holds some Mino
             if( selected != null )
             {
                 int startX = (pictureBox_grid.Width - net.VelicinaBloka * 9) / 2;
                 int startY = (pictureBox_grid.Height - net.VelicinaBloka * 9) / 5;
-                //provjera dal je unutar ploce
+                // if mouse release position is inside board
                 if ( e.Location.X >= startX && e.Location.X <= (startX + net.Sirina) && e.Location.Y >= startY && e.Location.Y <= (startY + net.Visina))
                 {
+                    // check if Mino can be put on boaard
                     checkPutOnBoard(e.Location.X, e.Location.Y);
-                    //Console.WriteLine("unutar");
                 } else
                 {
+                    //Mino can't be put on board, reset its position
                     selected.resetPosition();
                 }
             }
@@ -240,50 +266,60 @@ namespace Blockudoku
             spaceY = 0;
         }
 
+        /*
+         * Update position of selected Mino when mouse moves
+         */
         private void pictureBox_grid_MouseMove(object sender, MouseEventArgs e)
         {
+            // left button is pressed
             if (e.Button == MouseButtons.Left)
             {
-                
+                // User already selected some Mino before
                 if (selected != null)
                 {
+                    //Update position of selected Mino using mouse location
                     selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
                 }
                 else
                 {
-                    //još nije odabran oblik
+                    // User selected some Mino now
                     foreach(Mino mino in minos)
                     {
+                        // if user clicked on Mino
                         if (mino.onItem(e.Location.X, e.Location.Y) && mino.Stavljen)
                         {
                             selected = mino;
                             mino.IsSelected = true;
+                            //longitude between mouse location and Mino
                             spaceX = e.Location.X - mino.StartX;
                             spaceY = e.Location.Y - mino.StartY;
                             selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
                             break;
-                            //Console.WriteLine("LIJEVA TIPKA MISA.");
                         }
                     }
                 }
             }
         }
 
+        //Coordinates of mouse click
         private void pictureBox_grid_MouseClick(object sender, MouseEventArgs e)
         {
             spaceX = e.X;
             spaceY = e.Y;
         }
 
+        /*
+         * Checks if released Mino can be put on board
+         */
         private void checkPutOnBoard(int clickX, int clickY)
         {
             bool possible = true;
 
-            //mino ispusten na tim retcima i stupcima
+            //Row and column of mouse release
             int row = (clickY - (pictureBox_grid.Height - net.Visina) / 5) / net.VelicinaBloka;
             int col = (clickX - (pictureBox_grid.Width - net.Sirina) / 2) / net.VelicinaBloka;
 
-            //location of the begining of Mino matrix based on the mouseClick location
+            //location of the beginning of Mino matrix based on the mouseClick location
             int rowS = (selected.Y - (pictureBox_grid.Height - net.Visina) / 5);
             int colS = (selected.X - (pictureBox_grid.Width - net.Sirina) / 2);
             rowS = rowS < 0 ? rowS / net.VelicinaBloka - 1 : rowS / net.VelicinaBloka;
@@ -295,6 +331,7 @@ namespace Blockudoku
                 {
                     if (selected.sadrzaj[i, j])
                     {
+                        // Mino has some content outside the grid
                         if (i + colS > 8 || i + colS < 0 || j + rowS > 8 || j + rowS < 0 || net.Ploca[i + colS, j + rowS] > 0)
                         {
                             possible = false;
@@ -303,6 +340,9 @@ namespace Blockudoku
                 }
             }
 
+            // if Mino can be put on board
+            // update net
+            // update score
             if (possible)
             {
                 selected.Stavljen = false;
@@ -313,22 +353,28 @@ namespace Blockudoku
 
                 if (!minos[0].Stavljen && !minos[1].Stavljen && !minos[2].Stavljen)
                 {
+                    //make new Minos if user put all three of them
                     minos = makeMinos();
                     resizeMinos();
 
                 }
                 if (isEnd())
                 {
+                    // no more moves can be made -> endGame
                     endMessage();
                 }
             }
             else
             {
+                //Mino can't be put on board; reset position of selected Mino
                 selected.resetPosition();
             }
 
         }
 
+        /*
+         * Go back to Main Menu through back button
+         */
         private void button_back_Click(object sender, EventArgs e)
         {
             if(arcade > 0)
@@ -340,6 +386,9 @@ namespace Blockudoku
             }
         }
 
+        /*
+         * Checks if at least one Mino of the given ones can be put on board
+         */
         private bool isEnd()
         {
             bool end = true;
@@ -352,10 +401,12 @@ namespace Blockudoku
                 }
             }
             if (arcade != 0 && score >= arcade * 100) end = true;
-            //Ovdje namjesti što se dogodi na kraju
             return end;
         }
 
+        /*
+         * Timer starts counting down 10 seconds
+         */
         private void resetTimer()
         {
             timer.Interval = 1000; // 1 second
@@ -364,19 +415,22 @@ namespace Blockudoku
             label_timer.Text = "Timer: " + counter + "s";
         }
 
+        /*
+         * Get top 10 scores from file
+         */
         private void getScores()
         {
+            // list for 10 scores
             scores = new List<int>(10);
 
             string basePath = Environment.CurrentDirectory;
-            //out of bin\Debug
+            //go to directory which contains wanted file
             string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\"));
 
-            Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
-            Console.WriteLine($"new directory:\n   {newPath}");
+            //Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
+            //Console.WriteLine($"new directory:\n   {newPath}");
 
             newPath += "top10.txt";
-            Console.WriteLine($"new directory:\n   {newPath}");
 
             try
             {
@@ -385,6 +439,7 @@ namespace Blockudoku
                 {
                     while (sr.Peek() >= 0)
                     {
+                        // add score to list with socres
                         scores.Add(Convert.ToInt32(sr.ReadLine()));
                     }
                 }
@@ -394,19 +449,17 @@ namespace Blockudoku
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(ex.Message);
             }
-
-            /*
-            foreach( var line in scores )
-            {
-                Console.WriteLine(line.ToString());
-            }
-            */
         }
 
+        /*
+         * Get data when loading form
+         */
         private void PlayStateForm_Load(object sender, EventArgs e)
         {
+            // get top 10 scores
             getScores();
 
+            // if user plays arcade game, prepare game
             switch (arcade)
             {
                 case 1:
@@ -442,6 +495,7 @@ namespace Blockudoku
                     break;
             }
 
+            // prepare timer
             if (this.timed)
             {
                 timer = new Timer();
@@ -453,20 +507,28 @@ namespace Blockudoku
                 label_timer.Text = "";
             }
 
+            // prepare obstacles
             if(this.obstacles)
             {
                 generateObstacles();
             }
 
+            // change background color
             this.tableLayoutPanel_game.BackColor = this.colorBackground;
             resizeMinos();
         }
 
+        /*
+         * Notify user about game goals
+         */
         private void prepareState(int target_score)
         {
             this.desired_score_label.Text = "Level " + arcade.ToString() + "\n\nTarget score: " + target_score.ToString();
         }
 
+        /*
+         * Generate obstacles and positions for them in grid
+         */
         private void generateObstacles()
         {
             Random rand = new Random();
@@ -487,17 +549,18 @@ namespace Blockudoku
             }
         }
 
+        /*
+         * Method writes top 10 scores in file
+         */
         private void updateScores()
         {
             string basePath = Environment.CurrentDirectory;
-            //out of bin\Debug
             string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\"));
 
-            Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
-            Console.WriteLine($"new directory:\n   {newPath}");
+            //Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
+            //Console.WriteLine($"new directory:\n   {newPath}");
 
             newPath += "top10.txt";
-            Console.WriteLine($"new directory:\n   {newPath}");
 
             try
             {
@@ -520,6 +583,9 @@ namespace Blockudoku
             }
         }
 
+        /*
+         * Checks if user has good enough score
+         */
         private bool checkTop10()
         {
             var myScore = this.score;
@@ -537,6 +603,9 @@ namespace Blockudoku
             return false;
         }
 
+        /*
+         * Message shown to user when game is over
+         */
         private void endMessage()
         {
             string message;
@@ -578,8 +647,12 @@ namespace Blockudoku
             }
         }
 
+        /*
+         * Updates label with remaining seconds
+         */
         private void timer_Tick(object sender, EventArgs e)
         {
+            // game over
             if (counter == 0)
             {
                 timer.Stop();

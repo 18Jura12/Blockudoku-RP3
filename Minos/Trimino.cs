@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Blockudoku
 {
+    // class which represents shape with three rectangles; vertical position
+    // switch case represents rotations of shape
     class TriVertical : Mino
     {
         public TriVertical(int blockSize, int X, int Y) : base(blockSize, X, Y)
@@ -33,6 +35,8 @@ namespace Blockudoku
         }
     }
 
+    // class which represents shape with three rectangles; diagonal position
+    // switch case represents rotations of shape
     class TriDiag : Mino
     {
         public TriDiag(int blockSize, int X, int Y) : base(blockSize, X, Y)
@@ -60,6 +64,8 @@ namespace Blockudoku
         }
     }
 
+    // class which represents shape with three rectangles; letter L 
+    // switch case represents rotations of shape
     class TriL : Mino
     {
         public TriL(int blockSize, int X, int Y) : base(blockSize, X, Y)
