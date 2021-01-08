@@ -18,6 +18,7 @@ namespace Blockudoku
         public UnlockLevelForm()
         {
             InitializeComponent();
+            this.Text = "";
         }
 
         //checks whether the password is in good format and changes the level state of arcade game

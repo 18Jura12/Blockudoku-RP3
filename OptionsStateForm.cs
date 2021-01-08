@@ -19,20 +19,9 @@ namespace Blockudoku
         public OptionsStateForm()
         {
             InitializeComponent();
+            this.Text = "";
         }
 
-        /*
-         * Prevents flickering background
-         */
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle = cp.ExStyle | 0x2000000;
-                return cp;
-            }
-        }
 
         //updates timed status for standard game
         private void timed_checkBox_CheckedChanged(object sender, EventArgs e)

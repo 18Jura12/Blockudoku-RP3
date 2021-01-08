@@ -17,27 +17,15 @@ namespace Blockudoku
         {
             InitializeComponent();
             customTextBox_topTen.Enter += (s, e) => { customTextBox_topTen.Parent.Focus(); };
+            this.Text = "";
         }
 
-        /*
-         * Prevents flickering
-         */
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle = cp.ExStyle | 0x2000000;
-                return cp;
-            }
-        }
 
         /*
          * Update size of objects on form
          */
         private void TopScoresStateForm_SizeChanged(object sender, EventArgs e)
         {
-
             this.groupBox_Scores.Width = this.Width * 2 / 3;
             this.groupBox_Scores.Height = this.Height * 2 / 3;
 
@@ -72,6 +60,10 @@ namespace Blockudoku
             //int y3 = Convert.ToInt32(y2 + textBox_Scores.Height);
 
             this.button_Scores_back.Location = new Point(x3, y3);
+
+            this.panel_buttons.Width = this.Width;
+            this.panel_buttons.Height = this.Height / 12;
+            this.panel_buttons.Location = new Point(0, 0);
         }
 
         /*
@@ -95,19 +87,20 @@ namespace Blockudoku
         //reads the file and displays the scores inside of it
         private void displayScores(string path)
         {
+            this.customTextBox_topTen.Text = "";
             string basePath = Environment.CurrentDirectory;
-            //out of bin\Debug
             string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\Scores\"));
 
             //Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
-            //Console.WriteLine($"new directory:\n   {newPath}");
 
             newPath += path;
+
+            //Console.WriteLine($"new directory:\n   {newPath}");
 
             try
             {
                 // Open the text file using a stream reader.
-                using (var sr = new StreamReader(path))
+                using (var sr = new StreamReader(newPath))
                 {
                     // Read the stream as a string, and write the string to the console.
                     //Console.WriteLine(sr.ReadToEnd());
@@ -145,7 +138,7 @@ namespace Blockudoku
 
         private void obstacles_radioButton_CheckedChanged(object sender, EventArgs e)
         {
-            if (this.timed_radioButton.Checked == true)
+            if (this.obstacles_radioButton.Checked == true)
             {
                 displayScores("top10_obstacles.txt");
             }
@@ -153,7 +146,8 @@ namespace Blockudoku
 
         private void timed_obstacles_radioButton_CheckedChanged(object sender, EventArgs e)
         {
-            if (this.timed_radioButton.Checked == true)
+            
+            if (this.timed_obstacles_radioButton.Checked == true)
             {
                 displayScores("top10_timed_obstacles.txt");
             }

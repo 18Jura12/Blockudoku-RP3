@@ -22,6 +22,8 @@ namespace Blockudoku
             customTextBox_rules.Enter += (s, e) => {
                 customTextBox_rules.Parent.Focus(); 
             };
+
+            this.Text = "";
         }
 
         /*

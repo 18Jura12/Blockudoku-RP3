@@ -38,6 +38,20 @@ namespace Blockudoku
 
             colorBlocks = System.Drawing.Color.DarkBlue;
             colorBackground = System.Drawing.Color.Azure;
+            score = 0;
+        }
+
+        /*
+         * Prevents flickering
+         */
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle = cp.ExStyle | 0x2000000;
+                return cp;
+            }
         }
     }
 }

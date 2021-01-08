@@ -50,23 +50,11 @@ namespace Blockudoku
             selected = null;
             spaceX = 0;
             spaceY = 0;
-            score = 0;
             arcade = 0;
             obstacles_generated = 5;
-           
-        }
 
-        /*
-         * Prevents flickering
-         */
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle = cp.ExStyle | 0x2000000;
-                return cp;
-            }
+            this.Text = "";
+
         }
 
         /*
@@ -94,7 +82,6 @@ namespace Blockudoku
                 {
                     //Monomino
                     case 0:
-                        //minos.Add(new Mono(50, startX[i], startY));
                         minos.Add(new Mono(blockSize, 500, i * 200));
                         break;
                     // DoMino
@@ -103,7 +90,6 @@ namespace Blockudoku
                         {
                             case 0:
                                 minos.Add(new DoVertical(blockSize, 500, i * 200));
-                                //minos.Add(new DoVertical(blockSize, startX + 5 * i * blockSize, startY));
                                 break;
                             case 1:
                                 minos.Add(new DoDiag(blockSize, 500, i * 200));
@@ -193,7 +179,7 @@ namespace Blockudoku
 
             if (minos == null)
             {
-                MessageBox.Show("null vrijednost");
+                MessageBox.Show("null value");
             }
             else
             {
@@ -205,9 +191,9 @@ namespace Blockudoku
                 int startX = (pictureBox_grid.Width - blockSize * 15) / 2;
 
                 // draws Minos which user puts on grid
-                if (minos[0].Stavljen) minos[0].crtaj(e.Graphics, startX, startY, blockSize, this.colorBlocks);
-                if (minos[1].Stavljen) minos[1].crtaj(e.Graphics, startX + 5 * blockSize, startY, blockSize, this.colorBlocks);
-                if (minos[2].Stavljen) minos[2].crtaj(e.Graphics, startX + 10 * blockSize, startY, blockSize, this.colorBlocks);
+                if (minos[0].NotOnBoard) minos[0].drawMino(e.Graphics, startX, startY, blockSize, this.colorBlocks);
+                if (minos[1].NotOnBoard) minos[1].drawMino(e.Graphics, startX + 5 * blockSize, startY, blockSize, this.colorBlocks);
+                if (minos[2].NotOnBoard) minos[2].drawMino(e.Graphics, startX + 10 * blockSize, startY, blockSize, this.colorBlocks);
             }
 
             ResumeLayout();
@@ -254,7 +240,7 @@ namespace Blockudoku
             int startX = (pictureBox_grid.Width - blockSize * 15) / 2;
             for (int i = 0; i < minos.Count; ++i)
             {
-                if (minos[i].Stavljen)
+                if (minos[i].NotOnBoard)
                 {
                     minos[i].BlockSize = blockSize;
                     minos[i].StartX = startX + i * 5 * blockSize;
@@ -311,7 +297,7 @@ namespace Blockudoku
                     foreach(Mino mino in minos)
                     {
                         // if user clicked on Mino
-                        if (mino.onItem(e.Location.X, e.Location.Y) && mino.Stavljen)
+                        if (mino.onItem(e.Location.X, e.Location.Y) && mino.NotOnBoard)
                         {
                             selected = mino;
                             mino.IsSelected = true;
@@ -370,13 +356,13 @@ namespace Blockudoku
             // update score
             if (possible)
             {
-                selected.Stavljen = false;
+                selected.NotOnBoard = false;
                 selected.IsSelected = false;
                 net.putOnBoard(colS, rowS, selected);
                 score += net.updateBoard();
                 this.score_label.Text = "Score: " + score.ToString();
 
-                if (!minos[0].Stavljen && !minos[1].Stavljen && !minos[2].Stavljen)
+                if (!minos[0].NotOnBoard && !minos[1].NotOnBoard && !minos[2].NotOnBoard)
                 {
                     //make new Minos if user put all three of them
                     minos = makeMinos();
@@ -421,13 +407,14 @@ namespace Blockudoku
             bool end = true;
             foreach (Mino mino in minos)
             {
-                if (mino.Stavljen && net.isMinoPossible(mino))
+                if (mino.NotOnBoard && net.isMinoPossible(mino))
                 {
                     end = false;
                     break;
                 }
             }
             if (arcade != 0 && score >= arcade * 100) end = true;
+
             return end;
         }
 
@@ -452,7 +439,7 @@ namespace Blockudoku
 
             string basePath = Environment.CurrentDirectory;
             //go to directory which contains wanted file
-            string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\"));
+            string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\Scores\"));
 
             //Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
             //Console.WriteLine($"new directory:\n   {newPath}");
@@ -668,6 +655,10 @@ namespace Blockudoku
          */
         private void endMessage()
         {
+            if(this.timed)
+            {
+                timer.Stop();
+            }
             string message;
             if(arcade != 0)
             {
@@ -715,7 +706,6 @@ namespace Blockudoku
             // game over
             if (counter == 0)
             {
-                timer.Stop();
                 endMessage();
             }
             --counter;

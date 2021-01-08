@@ -9,24 +9,23 @@ namespace Blockudoku
 {
     abstract class Mino
     {
-
-        //content objekta, svi su smjesetni u matrici 5x5, na onim mjestim na kojim se nalazi blok je true
+        //Content of object represented by 5x5 matrix;
         public bool[,] content;
-        //velicina bloka
+        //size of block
         int blockSize;
-        //trenutna pozicija
+        //position on Mino; important when mouse moves
         int x;
         int y;
-        //pocetna pozicija za crtanje 5x5 mreze
+        //position where Mino is created
         int startX;
         int startY;
-        //ako jos nije stavljen na plocu je true, inace false
-        bool stavljen;
-        //je li označen od strane miša ili ne
+        //true if Mino isn't on board, otherwise is false
+        bool notOnBoard;
+        //true if Mino is selected by mouse
         bool isSelected;
-        //najmanji redak u kojem se nalazi neki blok u 5x5 matrici
+        //smallest row where Mino has content in 5x5 matrix
         public int minrow;
-        //najmanji stupac u kojem se nalazi neki blok u 5x5 matrici
+        //smallest column where Mino has content in 5x5 matrix
         public int mincol;
 
         public Mino(int blockSize, int X, int Y)
@@ -37,11 +36,14 @@ namespace Blockudoku
             this.y = Y;
             this.blockSize = blockSize;
             this.content = new bool[5, 5];
-            stavljen = true;
+            notOnBoard = true;
             isSelected = false;
         }
 
-        public void crtaj(Graphics grafika, int startX, int startY, int size, Color color)
+        /*
+         *  Draws Mino on form
+         */
+        public void drawMino(Graphics grafika, int startX, int startY, int size, Color color)
         {
             SolidBrush myBrush = new System.Drawing.SolidBrush(color);
 
@@ -63,17 +65,13 @@ namespace Blockudoku
                         grafika.FillRectangle(myBrush, rect);
                         grafika.DrawRectangle(Pens.AntiqueWhite, rect);
                     }
-                    /*else
-                    {
-                        Rectangle rect = new Rectangle(i * size + startX, j * size + startY, size, size);
-                        //Rectangle rect = new Rectangle(i * blockSize + x, j * blockSize + y, blockSize, blockSize);
-                        grafika.DrawRectangle(Pens.AntiqueWhite, rect);
-                    }*/
                 }
             }
         }
 
-        // checks if coordinates (x,y) are on item
+        /*
+         * Checks if coordinates (x,y) are on item
+         */
         public bool onItem( int x, int y)
         {
             for (int i = 0; i < content.GetLength(0) ; i++)
@@ -94,7 +92,9 @@ namespace Blockudoku
             return false;
         }
 
-        // updates coordinates of the selected Mino
+        /*
+         * updates coordinates of the selected Mino
+         */
         public void moveMino( int x, int y, int spaceX, int spaceY)
         {
             // new position of Mino (old position minus (longitude of user click and old position)
@@ -105,7 +105,9 @@ namespace Blockudoku
             this.y = moveY;
         }
 
-        // move selected Mino to its start position
+        /*
+         * move selected Mino to its start position
+         */
         public void resetPosition()
         {
             this.x = this.StartX;
@@ -113,15 +115,15 @@ namespace Blockudoku
             isSelected = false;
         }
 
-        public bool Stavljen
+        public bool NotOnBoard
         {
             get
             {
-                return stavljen;
+                return notOnBoard;
             }
             set
             {
-                stavljen = value;
+                notOnBoard = value;
             }
         }
 
