@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Blockudoku
 {
+    /*
+     * Class represents an option menu, where one can adjust standard game settings
+     */
     public partial class OptionsStateForm : StateForm
     {
 
@@ -31,11 +34,13 @@ namespace Blockudoku
             }
         }
 
+        //updates timed status for standard game
         private void timed_checkBox_CheckedChanged(object sender, EventArgs e)
         {
             this.timed = this.timed_checkBox.Checked;
         }
 
+        //updates obstacle status for standard game
         private void obstacles_checkBox_CheckedChanged(object sender, EventArgs e)
         {
             this.obstacles = this.obstacles_checkBox.Checked;
@@ -100,6 +105,7 @@ namespace Blockudoku
             this.back_button.Location = new Point(this.options_groupBox.Location.X + this.options_groupBox.Size.Width / 10, this.options_groupBox.Location.Y + this.options_groupBox.Size.Height * 7 / 10);
         }
 
+        //updates option menu components' size upon window manipulation
         private void OptionsStateForm_SizeChanged(object sender, EventArgs e)
         {
             float kWidth = this.options_groupBox.Size.Width;
@@ -111,8 +117,6 @@ namespace Blockudoku
             this.theme_label.Location = new Point(this.options_groupBox.Location.X + this.options_groupBox.Size.Width / 10, this.options_groupBox.Location.Y + this.options_groupBox.Size.Height * 5 / 10);
             this.theme_comboBox.Location = new Point(this.options_groupBox.Location.X + this.options_groupBox.Size.Width * 3 / 10, this.options_groupBox.Location.Y + this.options_groupBox.Size.Height * 5 / 10);
             this.back_button.Location = new Point(this.options_groupBox.Location.X + this.options_groupBox.Size.Width / 10, this.options_groupBox.Location.Y + this.options_groupBox.Size.Height * 7 / 10);
-
-            //Ako ti se da zajebavati s ovim, slobodno. JA više nemam snage pogađati dobar omjer. :D
 
             /*kWidth = this.options_groupBox.Size.Width / kWidth;
             kHeight = this.options_groupBox.Size.Height / kHeight;

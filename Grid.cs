@@ -8,75 +8,91 @@ using System.Windows.Forms;
 
 namespace Blockudoku
 {
+    /*
+     * Class represents the sudoku grid on witch the game is being played
+     */
     class Grid
     {
         int n = 9; // number of blocks in grid
-        int velicinaBloka = 50; // blockSize
-        int sirina = 450; //width
-        int visina = 450; //height
-        int[,] ploca; // matrix which represents grid
+        int blockSize = 50; // blockSize
+        int width = 450; //width
+        int height = 450; //height
+        int[,] net; // matrix which represents grid
 
         public Grid()
         {
-            this.ploca = new int[9,9];
+            this.net = new int[9,9];
         }
 
         public Grid( int n, int velicinaBloka, int sirina, int visina )
         {
             this.n = n;
-            this.velicinaBloka = velicinaBloka;
-            this.sirina = sirina;
-            this.visina = visina;
-            this.ploca = new int[n, n];
+            this.blockSize = velicinaBloka;
+            this.width = sirina;
+            this.height = visina;
+            this.net = new int[n, n];
         }
 
         /*
          * Draws grid on PlayStateForm
          */
-        public void crtajPlocu(Graphics grafika, int sirina, int visina, Color color, Color background)
+        public void drawGrid(Graphics graphics, int width, int height, Color color, Color background)
         {
-            grafika.Clear(background);
-            grafika.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            graphics.Clear(background);
+            graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
             // centered grid
-            int startX = (sirina - velicinaBloka * 9) / 2;
-            int startY = (visina - velicinaBloka * 9) / 5;
+            int startX = (width - blockSize * 9) / 2;
+            int startY = (height - blockSize * 9) / 5;
 
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
                 {
-                    // if grid contains block; fill rectangle
-                    if (ploca[i, j] > 0)
+                    //draw block-separating lines on grid
+                    if(i % 3 == 0)
                     {
-                        var brush = ploca[i, j] > 1 ? new SolidBrush(Color.DimGray) : new SolidBrush(color);
-                        grafika.FillRectangle(brush, new Rectangle(i * velicinaBloka + startX, j * velicinaBloka + startY, velicinaBloka, velicinaBloka));
+                        Pen pen = new Pen(Color.DarkCyan, 3);
+                        graphics.DrawLine(pen, startX + i * blockSize, startY + j * blockSize, startX + i * blockSize, startY + (j + 1) * blockSize);
+                        graphics.DrawLine(pen, startX + j * blockSize, startY + i * blockSize, startX + (j + 1) * blockSize, startY + i * blockSize);
+                    }
+                    else if(i == 8)
+                    {
+                        Pen pen = new Pen(Color.DarkCyan, 3);
+                        graphics.DrawLine(pen, startX + (i + 1) * blockSize, startY + j * blockSize, startX + (i + 1) * blockSize, startY + (j + 1) * blockSize);
+                        graphics.DrawLine(pen, startX + j * blockSize, startY + (i + 1) * blockSize, startX + (j + 1) * blockSize, startY + (i + 1) * blockSize);
+                    }
+
+                    // if grid contains block; fill rectangle
+                    if (net[i, j] > 0)
+                    {
+                        var brush = net[i, j] > 1 ? new SolidBrush(Color.DimGray) : new SolidBrush(color);
+                        graphics.FillRectangle(brush, new Rectangle(i * blockSize + startX, j * blockSize + startY, blockSize, blockSize));
                     }
 
                     // grid contains obstacle; fill rectangle
-                    if (ploca[i, j] > 1)
+                    if (net[i, j] > 1)
                     {
                         Font font = new Font("Papyrus", 16, FontStyle.Bold, GraphicsUnit.Point);
-                        RectangleF rect = new Rectangle(i * velicinaBloka + startX, j * velicinaBloka + startY, velicinaBloka, velicinaBloka);
-                        //TextRenderer.DrawText(grafika, ploca[i, j].ToString(), font, rect, Color.Orange, TextFormatFlags.VerticalCenter);
+                        RectangleF rect = new Rectangle(i * blockSize + startX, j * blockSize + startY, blockSize, blockSize);
 
                         StringFormat sf = new StringFormat();
                         sf.LineAlignment = StringAlignment.Center;
                         sf.Alignment = StringAlignment.Center;
 
-                        grafika.DrawString(ploca[i, j].ToString(), font, new SolidBrush(Color.Orange), rect, sf);
-                        grafika.DrawRectangle(Pens.DarkCyan, Rectangle.Round(rect));
+                        graphics.DrawString(net[i, j].ToString(), font, new SolidBrush(Color.Orange), rect, sf);
+                        graphics.DrawRectangle(Pens.DarkCyan, Rectangle.Round(rect));
                     }
                     // empty cell in grid; no fill
                     else
                     {
-                        grafika.DrawRectangle(Pens.DarkCyan, i * velicinaBloka + startX, j * velicinaBloka + startY, velicinaBloka, velicinaBloka);
+                        graphics.DrawRectangle(Pens.DarkCyan, i * blockSize + startX, j * blockSize + startY, blockSize, blockSize);
                     }
                 }
             }
         }
 
-        public int BrojBlokova
+        public int BlockNumber
         {
             get
             {
@@ -84,52 +100,47 @@ namespace Blockudoku
             }
         }
 
-        public int VelicinaBloka
+        public int BlockSize
         {
             get
             {
-                return velicinaBloka;
+                return blockSize;
             }
             set
             {
-                velicinaBloka = value;
+                blockSize = value;
             }
         }
 
-        public int Sirina
+        public int Width
         {
             get
             {
-                return sirina;
+                return width;
             }
             set
             {
-                sirina = value;
+                width = value;
             }
         }
 
-        public int Visina
+        public int Height
         {
             get
             {
-                return visina;
+                return height;
             }
             set
             {
-                visina = value;
+                height = value;
             }
         }
 
-        public int Rezultat
-        {
-            get;
-        }
-
-        public int[,] Ploca
+        public int[,] Net
         {
             get
             {
-                return ploca;
+                return net;
             }
         }
 
@@ -142,15 +153,15 @@ namespace Blockudoku
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    if (mino.sadrzaj[i, j])
+                    if (mino.content[i, j])
                     {
-                        ploca[col + i, row + j]++;
+                        net[col + i, row + j]++;
                     }
                 }
             }
         }
 
-        /**
+        /*
          * updates the board by removing and scoring full areas that were made in current move
          */
         public int updateBoard()
@@ -169,19 +180,19 @@ namespace Blockudoku
             int[] blocks = new int[18];
 
             //check for full rows
-            for (int i = 0; i < ploca.GetLength(0); i++)
+            for (int i = 0; i < net.GetLength(0); i++)
             {
                 full = true;
-                for (int j = 0; j < ploca.GetLength(1); j++)
+                for (int j = 0; j < net.GetLength(1); j++)
                 {
-                    if (ploca[j, i] == 0) 
+                    if (net[j, i] == 0) 
                     {
                         full = false;
                         temp_pen = 0;
                         break;
                     } else
                     {
-                        temp_pen += ploca[j, i] > 1 ? ploca[j, i] : 0;           
+                        temp_pen += net[j, i] > 1 ? net[j, i] : 0;           
                     }
                 }
                 if (full)
@@ -194,18 +205,18 @@ namespace Blockudoku
             counter = temp_pen = 0; 
 
             //check for full columns
-            for (int i = 0; i < ploca.GetLength(0); i++)
+            for (int i = 0; i < net.GetLength(0); i++)
             {
                 full = true;
-                for (int j = 0; j < ploca.GetLength(1); j++)
-                    if (ploca[i, j] == 0) 
+                for (int j = 0; j < net.GetLength(1); j++)
+                    if (net[i, j] == 0) 
                     { 
                         full = false;
                         temp_pen = 0;
                         break;
                     } else
                     {
-                        temp_pen += ploca[i, j] > 1 ? ploca[i, j] : 0;
+                        temp_pen += net[i, j] > 1 ? net[i, j] : 0;
                     }
                 if (full)
                 {
@@ -217,22 +228,22 @@ namespace Blockudoku
             counter = temp_pen = 0;
 
             //check for full blocks
-            for (int i = 0; i < ploca.GetLength(0); i += 3)
+            for (int i = 0; i < net.GetLength(0); i += 3)
             {
-                for (int j = 0; j < ploca.GetLength(1); j += 3)
+                for (int j = 0; j < net.GetLength(1); j += 3)
                 {
                     full = true;
                     for (int k = i; k < i + 3; k++)
                         for (int l = j; l < j + 3; l++)
                         {
-                            if (ploca[k, l] == 0) 
+                            if (net[k, l] == 0) 
                             { 
                                 full = false;
                                 temp_pen = 0;
                                 break; 
                             } else
                             {
-                                temp_pen += ploca[k, l] > 1 ? ploca[k, l] : 0;
+                                temp_pen += net[k, l] > 1 ? net[k, l] : 0;
                             }
                             if (full == false) break;
                         }
@@ -252,44 +263,53 @@ namespace Blockudoku
             for (int a = 0; a < columns.GetLength(0); a++) if (columns[a] > 0) clearColumn(columns[a]-1);
             for (int a = 0; a < blocks.GetLength(0); a += 2) if (blocks[a] > 0) clearBlock(blocks[a]-1, blocks[a + 1]-1);
 
+            //update current score
             return 9 * combo + combo * combo - penalty;
         }
 
+        //clears full rows by their index on the net
         public void clearRow(int i)
         {
-            for (int j = 0; j < ploca.GetLength(0); j++) if (ploca[j, i] > 0) ploca[j, i]--;
+            for (int j = 0; j < net.GetLength(0); j++) if (net[j, i] > 0) net[j, i]--;
         }
 
+        //clears full columns by their index on the net
         public void clearColumn(int i)
         {
-            for (int j = 0; j < ploca.GetLength(1); j++) if (ploca[i, j] > 0) ploca[i, j]--;
+            for (int j = 0; j < net.GetLength(1); j++) if (net[i, j] > 0) net[i, j]--;
         }
 
+        //clears full blocks by their index on the net ((0, 0) - (2, 2))
         public void clearBlock(int i, int j)
         {
             for (int k = i; k < i + 3; k++)
-                for (int l = j; l < j + 3; l++) if (ploca[k, l] > 0) ploca[k, l]--;
+                for (int l = j; l < j + 3; l++) if (net[k, l] > 0) net[k, l]--;
         }
 
+        /*
+         * checks whether the given mino is possible to be put on current net
+         */
         public bool isMinoPossible(Mino mino)
         {
             bool dobar = true;
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < n; j++)
                 {
-                    for (int k = 0; k < mino.sadrzaj.GetLength(0); k++)
-                        for (int l = 0; l < mino.sadrzaj.GetLength(1); l++)
+                    for (int k = 0; k < mino.content.GetLength(0); k++)
+                        for (int l = 0; l < mino.content.GetLength(1); l++)
                         {
                             dobar = true;
-                            if (mino.sadrzaj[k, l])
+                            if (mino.content[k, l])
                             {
+                                //if mino goes outside the net area, it cannot be put there,
+                                //else if something is already there, it cannot be put there
                                 if (i + k - mino.minrow >= 9 || j + l - mino.mincol >= 9)
                                 { 
-                                    dobar = false; k = mino.sadrzaj.GetLength(0); break; 
+                                    dobar = false; k = mino.content.GetLength(0); break; 
 
-                                } else if(ploca[i + k - mino.minrow, j + l - mino.mincol] > 0)
+                                } else if(net[i + k - mino.minrow, j + l - mino.mincol] > 0)
                                 {
-                                    dobar = false; k = mino.sadrzaj.GetLength(0); break;
+                                    dobar = false; k = mino.content.GetLength(0); break;
                                 }
                             }
                         }

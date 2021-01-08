@@ -17,7 +17,7 @@ namespace Blockudoku
      */
     public partial class PlayStateForm : StateForm
     {
-        // Three Mino which user must put on the grid
+        // Three Mino objects which user must put on the grid
         List<Mino> minos;
         // Sudoku grid
         Grid net;
@@ -36,7 +36,7 @@ namespace Blockudoku
         // top10 scores
         List<int> scores;
 
-        // represents level
+        // represents whether the game is standard (0), or some level of arcade (1-5)
         int arcade;
 
         // obstacles
@@ -48,7 +48,6 @@ namespace Blockudoku
             minos = makeMinos();
             net = new Grid();
             selected = null;
-            //od klika za selected
             spaceX = 0;
             spaceY = 0;
             score = 0;
@@ -75,7 +74,7 @@ namespace Blockudoku
          */
         List<Mino> makeMinos()
         {
-            //timer stuff
+            //if Mino objects are being made, the timer for puting them on board is reset
             if (this.timed)
             {
                 timer.Stop();
@@ -90,9 +89,8 @@ namespace Blockudoku
 
             for (int i = 0; i < 3; i++)
             {
-                int randNum = rand.Next(0, 4);
 
-                switch (randNum)
+                switch (rand.Next(0, 5))
                 {
                     //Monomino
                     case 0:
@@ -101,8 +99,7 @@ namespace Blockudoku
                         break;
                     // DoMino
                     case 1:
-                        randNum = rand.Next(0, 2);
-                        switch (randNum)
+                        switch (rand.Next(0, 2))
                         {
                             case 0:
                                 minos.Add(new DoVertical(blockSize, 500, i * 200));
@@ -115,8 +112,7 @@ namespace Blockudoku
                         break;
                     // TriMino
                     case 2:
-                        randNum = rand.Next(0, 3);
-                        switch (randNum)
+                        switch (rand.Next(0, 3))
                         {
                             case 0:
                                 minos.Add(new TriVertical(blockSize, 500, i * 200));
@@ -131,8 +127,7 @@ namespace Blockudoku
                         break;
                     // TetroMino
                     case 3:
-                        randNum = rand.Next(0, 4);
-                        switch (randNum)
+                        switch (rand.Next(0, 4))
                         {
                             case 0:
                                 minos.Add(new TetroVertical(blockSize, 500, i * 200));
@@ -145,6 +140,36 @@ namespace Blockudoku
                                 break;
                             case 3:
                                 minos.Add(new TetroT(blockSize, 500, i * 200));
+                                break;
+                        }
+                        break;
+                    //Pentomino
+                    case 4:
+                        switch(rand.Next(0, 7))
+                        {
+                            case 0:
+                                minos.Add(new PentoC(blockSize, 500, i * 200));
+                                break;
+                            case 1:
+                                minos.Add(new PentoF(blockSize, 500, i * 200));
+                                break;
+                            case 2:
+                                minos.Add(new PentoI(blockSize, 500, i * 200));
+                                break;
+                            case 3:
+                                minos.Add(new PentoL(blockSize, 500, i * 200));
+                                break;
+                            case 4:
+                                minos.Add(new PentoL1(blockSize, 500, i * 200));
+                                break;
+                            case 5:
+                                minos.Add(new PentoT(blockSize, 500, i * 200));
+                                break;
+                            case 6:
+                                minos.Add(new PentoX(blockSize, 500, i * 200));
+                                break;
+                            case 7:
+                                minos.Add(new PentoZ(blockSize, 500, i * 200));
                                 break;
                         }
                         break;
@@ -164,7 +189,7 @@ namespace Blockudoku
             SuspendLayout();
             
             // draws grid
-            net.crtajPlocu(e.Graphics, pictureBox_grid.Width, pictureBox_grid.Height, this.colorBlocks, this.colorBackground);
+            net.drawGrid(e.Graphics, pictureBox_grid.Width, pictureBox_grid.Height, this.colorBlocks, this.colorBackground);
 
             if (minos == null)
             {
@@ -176,7 +201,7 @@ namespace Blockudoku
                 int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 16);
 
                 //position where drawing starts; centered
-                int startY = net.Visina + (pictureBox_grid.Height - blockSize * 9) / 5;
+                int startY = net.Height + (pictureBox_grid.Height - blockSize * 9) / 5;
                 int startX = (pictureBox_grid.Width - blockSize * 15) / 2;
 
                 // draws Minos which user puts on grid
@@ -202,9 +227,9 @@ namespace Blockudoku
 
                 // 2/3 pictureBox / 9
                 int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) * 2 / 27) - 2;
-                net.Sirina = blockSize * 9;
-                net.Visina = blockSize * 9;
-                net.VelicinaBloka = blockSize;
+                net.Width = blockSize * 9;
+                net.Height = blockSize * 9;
+                net.BlockSize = blockSize;
             }
 
             if( minos != null )
@@ -225,7 +250,7 @@ namespace Blockudoku
 
             //smaller than original 15-->16
             int blockSize = Convert.ToInt32(Math.Min(pictureBox_grid.Width, pictureBox_grid.Height) / 16);
-            int startY = net.Visina + (pictureBox_grid.Height - blockSize * 9) / 5;
+            int startY = net.Height + (pictureBox_grid.Height - blockSize * 9) / 5;
             int startX = (pictureBox_grid.Width - blockSize * 15) / 2;
             for (int i = 0; i < minos.Count; ++i)
             {
@@ -248,10 +273,10 @@ namespace Blockudoku
             // Mouse holds some Mino
             if( selected != null )
             {
-                int startX = (pictureBox_grid.Width - net.VelicinaBloka * 9) / 2;
-                int startY = (pictureBox_grid.Height - net.VelicinaBloka * 9) / 5;
+                int startX = (pictureBox_grid.Width - net.BlockSize * 9) / 2;
+                int startY = (pictureBox_grid.Height - net.BlockSize * 9) / 5;
                 // if mouse release position is inside board
-                if ( e.Location.X >= startX && e.Location.X <= (startX + net.Sirina) && e.Location.Y >= startY && e.Location.Y <= (startY + net.Visina))
+                if ( e.Location.X >= startX && e.Location.X <= (startX + net.Width) && e.Location.Y >= startY && e.Location.Y <= (startY + net.Height))
                 {
                     // check if Mino can be put on boaard
                     checkPutOnBoard(e.Location.X, e.Location.Y);
@@ -316,23 +341,23 @@ namespace Blockudoku
             bool possible = true;
 
             //Row and column of mouse release
-            int row = (clickY - (pictureBox_grid.Height - net.Visina) / 5) / net.VelicinaBloka;
-            int col = (clickX - (pictureBox_grid.Width - net.Sirina) / 2) / net.VelicinaBloka;
+            int row = (clickY - (pictureBox_grid.Height - net.Height) / 5) / net.BlockSize;
+            int col = (clickX - (pictureBox_grid.Width - net.Width) / 2) / net.BlockSize;
 
             //location of the beginning of Mino matrix based on the mouseClick location
-            int rowS = (selected.Y - (pictureBox_grid.Height - net.Visina) / 5);
-            int colS = (selected.X - (pictureBox_grid.Width - net.Sirina) / 2);
-            rowS = rowS < 0 ? rowS / net.VelicinaBloka - 1 : rowS / net.VelicinaBloka;
-            colS = colS < 0 ? colS / net.VelicinaBloka - 1 : colS / net.VelicinaBloka;
+            int rowS = (selected.Y - (pictureBox_grid.Height - net.Height) / 5);
+            int colS = (selected.X - (pictureBox_grid.Width - net.Width) / 2);
+            rowS = rowS < 0 ? rowS / net.BlockSize - 1 : rowS / net.BlockSize;
+            colS = colS < 0 ? colS / net.BlockSize - 1 : colS / net.BlockSize;
 
-            for (int i = 0; i < selected.sadrzaj.GetLength(0); ++i)
+            for (int i = 0; i < selected.content.GetLength(0); ++i)
             {
-                for (int j = 0; j < selected.sadrzaj.GetLength(1); ++j)
+                for (int j = 0; j < selected.content.GetLength(1); ++j)
                 {
-                    if (selected.sadrzaj[i, j])
+                    if (selected.content[i, j])
                     {
                         // Mino has some content outside the grid
-                        if (i + colS > 8 || i + colS < 0 || j + rowS > 8 || j + rowS < 0 || net.Ploca[i + colS, j + rowS] > 0)
+                        if (i + colS > 8 || i + colS < 0 || j + rowS > 8 || j + rowS < 0 || net.Net[i + colS, j + rowS] > 0)
                         {
                             possible = false;
                         }
@@ -373,7 +398,7 @@ namespace Blockudoku
         }
 
         /*
-         * Go back to Main Menu through back button
+         * Go back to the corresponding menu through back button
          */
         private void button_back_Click(object sender, EventArgs e)
         {
@@ -387,7 +412,9 @@ namespace Blockudoku
         }
 
         /*
-         * Checks if at least one Mino of the given ones can be put on board
+         * Checks wheter one of the ending criterias are met:
+         * - if at least one Mino of the given ones can be put on board
+         * - if in arcade game the target score is achieved
          */
         private bool isEnd()
         {
@@ -430,7 +457,22 @@ namespace Blockudoku
             //Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
             //Console.WriteLine($"new directory:\n   {newPath}");
 
-            newPath += "top10.txt";
+            if(timed)
+            {
+                if(obstacles)
+                {
+                    newPath += "top10_timed_obstacles.txt";
+                } else
+                {
+                    newPath += "top10_timed.txt";
+                }
+            } else if(obstacles)
+            {
+                newPath += "top10_obstacles.txt";
+            } else
+            {
+                newPath += "top10_normal.txt";
+            }
 
             try
             {
@@ -540,9 +582,9 @@ namespace Blockudoku
                 {
                     x = rand.Next(0, 9);
                     y = rand.Next(0, 9);
-                    if (net.Ploca[x, y] == 0)
+                    if (net.Net[x, y] == 0)
                     {
-                        net.Ploca[x, y] = arcade > 0 ? obstacles_generated : rand.Next(2, obstacles_generated + 1);
+                        net.Net[x, y] = arcade > 0 ? obstacles_generated : rand.Next(2, obstacles_generated + 1);
                         break;
                     }
                 }
@@ -555,12 +597,30 @@ namespace Blockudoku
         private void updateScores()
         {
             string basePath = Environment.CurrentDirectory;
-            string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\"));
+            string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\Scores\"));
 
             //Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
             //Console.WriteLine($"new directory:\n   {newPath}");
 
-            newPath += "top10.txt";
+            if (timed)
+            {
+                if (obstacles)
+                {
+                    newPath += "top10_timed_obstacles.txt";
+                }
+                else
+                {
+                    newPath += "top10_timed.txt";
+                }
+            }
+            else if (obstacles)
+            {
+                newPath += "top10_obstacles.txt";
+            }
+            else
+            {
+                newPath += "top10_normal.txt";
+            }
 
             try
             {

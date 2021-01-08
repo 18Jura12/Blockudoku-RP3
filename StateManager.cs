@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace Blockudoku
 {
+    /*
+     * class makes the transition from state to state
+     */
     class StateManager
     {
 
@@ -39,6 +42,7 @@ namespace Blockudoku
             CurrentState = NewState;
         }
 
+        //overload for choosing the arcade game level
         public void Transition(PlayStateForm NewState, int arcade)
         {
             NewState.Arcade = arcade;

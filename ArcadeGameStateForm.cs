@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Blockudoku
 {
+    /*
+     * class represents arcade game menu for choosing levels of difficulty
+     */
     public partial class ArcadeGameStateForm : StateForm
     {
 
@@ -18,6 +21,7 @@ namespace Blockudoku
             InitializeComponent();
         }
 
+        //prevents flickering
         protected override CreateParams CreateParams
         {
             get
@@ -33,11 +37,14 @@ namespace Blockudoku
             Program.stateManager.Transition(new MainMenuStateForm());
         }
 
+        
         private void ArcadeGameStateForm_Load(object sender, EventArgs e)
         {
             update_level();
         }
 
+        //updates the level based on the one that can be unlocked for 
+        //current user (can be changed if the level is unlocked or former one is passed).
         private void update_level()
         {
             switch (level)

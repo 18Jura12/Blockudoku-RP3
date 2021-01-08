@@ -10,8 +10,8 @@ namespace Blockudoku
     abstract class Mino
     {
 
-        //sadrzaj objekta, svi su smjesetni u matrici 5x5, na onim mjestim na kojim se nalazi blok je true
-        public bool[,] sadrzaj;
+        //content objekta, svi su smjesetni u matrici 5x5, na onim mjestim na kojim se nalazi blok je true
+        public bool[,] content;
         //velicina bloka
         int blockSize;
         //trenutna pozicija
@@ -36,7 +36,7 @@ namespace Blockudoku
             this.x = X;
             this.y = Y;
             this.blockSize = blockSize;
-            this.sadrzaj = new bool[5, 5];
+            this.content = new bool[5, 5];
             stavljen = true;
             isSelected = false;
         }
@@ -45,11 +45,11 @@ namespace Blockudoku
         {
             SolidBrush myBrush = new System.Drawing.SolidBrush(color);
 
-            for (int i = 0; i < sadrzaj.GetLength(0); i++)
+            for (int i = 0; i < content.GetLength(0); i++)
             {
-                for (int j = 0; j < sadrzaj.GetLength(1); j++)
+                for (int j = 0; j < content.GetLength(1); j++)
                 {
-                    if (sadrzaj[i, j])
+                    if (content[i, j])
                     {
                         Rectangle rect;
                         if(isSelected)
@@ -76,11 +76,11 @@ namespace Blockudoku
         // checks if coordinates (x,y) are on item
         public bool onItem( int x, int y)
         {
-            for (int i = 0; i < sadrzaj.GetLength(0) ; i++)
+            for (int i = 0; i < content.GetLength(0) ; i++)
             {
-                for (int j = 0; j < sadrzaj.GetLength(1); j++)
+                for (int j = 0; j < content.GetLength(1); j++)
                 {
-                    if (sadrzaj[i, j])
+                    if (content[i, j])
                     {
                         // if coordinates are over Mino
                         if (x >= (startX + i * blockSize) && x <= (startX + (i + 1) * blockSize) && y >= (startY + j * blockSize) && y <= (startY + (j + 1) * blockSize))

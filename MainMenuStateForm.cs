@@ -12,6 +12,7 @@ namespace Blockudoku
 {
     public partial class MainMenuStateForm : StateForm
     {
+        //passwords for unlocking new levels in arcade game, if the game is newly opened
         public static List<int> levels = new List<int> {6548, 1868, 1576, 3958};
         public MainMenuStateForm()
         {

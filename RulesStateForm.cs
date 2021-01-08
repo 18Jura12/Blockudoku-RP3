@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Blockudoku
 {
+    /*
+     * class represents explanation of the rules of the game 
+     */
     public partial class RulesStateForm : StateForm
     {
         public RulesStateForm()

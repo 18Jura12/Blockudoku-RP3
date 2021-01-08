@@ -74,6 +74,7 @@
     <Compile Include="Minos\Domino.cs" />
     <Compile Include="Minos\Mino.cs" />
     <Compile Include="Minos\Monomino.cs" />
+    <Compile Include="Minos\Pentomino.cs" />
     <Compile Include="Minos\Tertromino.cs" />
     <Compile Include="Minos\Trimino.cs" />
     <Compile Include="OptionsStateForm.cs">

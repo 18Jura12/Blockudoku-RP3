@@ -18,16 +18,16 @@ namespace Blockudoku
             switch (randNum)
             {
                 case 0:
-                    sadrzaj[2,1] = true;
-                    sadrzaj[2,2] = true;
-                    sadrzaj[2,3] = true;
+                    content[2,1] = true;
+                    content[2,2] = true;
+                    content[2,3] = true;
                     this.mincol = 1;
                     this.minrow = 2;
                     break;
                 case 1:
-                    sadrzaj[1,2] = true;
-                    sadrzaj[2,2] = true;
-                    sadrzaj[3,2] = true;
+                    content[1,2] = true;
+                    content[2,2] = true;
+                    content[3,2] = true;
                     this.mincol = 2;
                     this.minrow = 1;
                     break;
@@ -47,16 +47,16 @@ namespace Blockudoku
             switch (randNum)
             {
                 case 0:
-                    sadrzaj[1,1] = true;
-                    sadrzaj[2,2] = true;
-                    sadrzaj[3,3] = true;
+                    content[1,1] = true;
+                    content[2,2] = true;
+                    content[3,3] = true;
                     this.mincol = 1;
                     this.minrow = 1;
                     break;
                 case 1:
-                    sadrzaj[1,3] = true;
-                    sadrzaj[2,2] = true;
-                    sadrzaj[3,1] = true;
+                    content[1,3] = true;
+                    content[2,2] = true;
+                    content[3,1] = true;
                     this.mincol = 1;
                     this.minrow = 1;
                     break;
@@ -76,30 +76,30 @@ namespace Blockudoku
             switch (randNum)
             {
                 case 0:
-                    sadrzaj[1,2] = true;
-                    sadrzaj[2,2] = true;
-                    sadrzaj[2,3] = true;
+                    content[1,2] = true;
+                    content[2,2] = true;
+                    content[2,3] = true;
                     this.mincol = 2;
                     this.minrow = 1;
                     break;
                 case 1:
-                    sadrzaj[2,3] = true;
-                    sadrzaj[2,2] = true;
-                    sadrzaj[3,2] = true;
+                    content[2,3] = true;
+                    content[2,2] = true;
+                    content[3,2] = true;
                     this.mincol = 2;
                     this.minrow = 2;
                     break;
                 case 2:
-                    sadrzaj[2,1] = true;
-                    sadrzaj[2,2] = true;
-                    sadrzaj[3,2] = true;
+                    content[2,1] = true;
+                    content[2,2] = true;
+                    content[3,2] = true;
                     this.mincol = 1;
                     this.minrow = 2;
                     break;
                 case 3:
-                    sadrzaj[1,2] = true;
-                    sadrzaj[2,2] = true;
-                    sadrzaj[2,1] = true;
+                    content[1,2] = true;
+                    content[2,2] = true;
+                    content[2,1] = true;
                     this.mincol = 1;
                     this.minrow = 1;
                     break;

@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Blockudoku
 {
+    /*
+     * The Class represents window in which all  of the states are shown
+     */
     public partial class MdiContainer : Form
     {
         public MdiContainer()

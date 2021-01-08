@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace Blockudoku
 {
+    /*
+     * class represents a form where one can input a password for unlocking levels in arcade game mode
+     */
     public partial class UnlockLevelForm : Form
     {
         public UnlockLevelForm()
@@ -17,13 +20,23 @@ namespace Blockudoku
             InitializeComponent();
         }
 
+        //checks whether the password is in good format and changes the level state of arcade game
+        //if the password is correct
         private void unlock_level_textBox_TextChanged(object sender, EventArgs e)
         {
             this.outcome_label.Text = "";
 
             if(this.unlock_level_textBox.TextLength == 4)
             {
-                int newLevel = MainMenuStateForm.levels.LastIndexOf(Convert.ToInt32(this.unlock_level_textBox.Text));
+                int newLevel;
+                try
+                {
+                    newLevel = MainMenuStateForm.levels.LastIndexOf(Convert.ToInt32(this.unlock_level_textBox.Text));
+                } catch(FormatException)
+                {
+                    newLevel = -1;
+                }
+
                 if(newLevel != -1)
                 {
                     if(newLevel + 2 > MainMenuStateForm.level) MainMenuStateForm.level = newLevel + 2;

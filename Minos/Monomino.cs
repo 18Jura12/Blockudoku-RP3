@@ -11,7 +11,7 @@ namespace Blockudoku.Minos
     {
         public Mono(int blockSize, int X, int Y) : base(blockSize, X, Y)
         {
-            sadrzaj[2, 2] = true;
+            content[2, 2] = true;
 
             this.minrow = 2;
             this.mincol = 2;

@@ -37,6 +37,7 @@ namespace Blockudoku
          */
         private void TopScoresStateForm_SizeChanged(object sender, EventArgs e)
         {
+
             this.groupBox_Scores.Width = this.Width * 2 / 3;
             this.groupBox_Scores.Height = this.Height * 2 / 3;
 
@@ -86,19 +87,27 @@ namespace Blockudoku
          */
         private void TopScoresStateForm_Load(object sender, EventArgs e)
         {
+            normal_radioButton.Checked = true;
+
+            displayScores("top10_normal.txt");
+        }
+
+        //reads the file and displays the scores inside of it
+        private void displayScores(string path)
+        {
             string basePath = Environment.CurrentDirectory;
             //out of bin\Debug
-            string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\"));
+            string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\Scores\"));
 
             //Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
             //Console.WriteLine($"new directory:\n   {newPath}");
 
-            newPath += "top10.txt";
+            newPath += path;
 
             try
             {
                 // Open the text file using a stream reader.
-                using (var sr = new StreamReader(newPath))
+                using (var sr = new StreamReader(path))
                 {
                     // Read the stream as a string, and write the string to the console.
                     //Console.WriteLine(sr.ReadToEnd());
@@ -115,6 +124,38 @@ namespace Blockudoku
             {
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void normal_radioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if(this.normal_radioButton.Checked == true)
+            {
+                displayScores("top10_normal.txt");
+            }
+        }
+
+        private void timed_radioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.timed_radioButton.Checked == true)
+            {
+                displayScores("top10_timed.txt");
+            }
+        }
+
+        private void obstacles_radioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.timed_radioButton.Checked == true)
+            {
+                displayScores("top10_obstacles.txt");
+            }
+        }
+
+        private void timed_obstacles_radioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.timed_radioButton.Checked == true)
+            {
+                displayScores("top10_timed_obstacles.txt");
             }
         }
     }
