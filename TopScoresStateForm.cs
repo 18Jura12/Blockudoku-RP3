@@ -89,7 +89,7 @@ namespace Blockudoku
         {
             this.customTextBox_topTen.Text = "";
             string basePath = Environment.CurrentDirectory;
-            string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\Scores\"));
+            string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\Score\"));
 
             //Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
 

@@ -452,7 +452,7 @@ namespace Blockudoku
 
             string basePath = Environment.CurrentDirectory;
             //go to directory which contains wanted file
-            string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\Scores\"));
+            string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\Score\"));
 
             //Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
             //Console.WriteLine($"new directory:\n   {newPath}");
@@ -597,7 +597,7 @@ namespace Blockudoku
         private void updateScores()
         {
             string basePath = Environment.CurrentDirectory;
-            string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\Scores\"));
+            string newPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\Score\"));
 
             //Console.WriteLine($"Current directory:\n   {Environment.CurrentDirectory}");
             //Console.WriteLine($"new directory:\n   {newPath}");
