@@ -368,7 +368,7 @@ namespace Blockudoku
                 this.score_label.Text = "Score: " + score.ToString();
                 if(combo > 0)
                 {
-                    this.score_label.Text += "\n+ 9 X " + combo.ToString() + "\n+ " + (combo*combo).ToString();
+                    this.score_label.Text += "\n+ 9 x " + combo.ToString() + "\n+ " + (combo*combo).ToString();
                 }
                 if(penalty > 0)
                 {
