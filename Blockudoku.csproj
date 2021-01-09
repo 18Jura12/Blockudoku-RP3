@@ -168,7 +168,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\simple-blue-background1.jpg" />
-    <Content Include="top10.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Score\top10_normal.txt" />
+    <Content Include="Score\top10_obstacles.txt" />
+    <Content Include="Score\top10_timed.txt" />
+    <Content Include="Score\top10_timed_obstacles.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

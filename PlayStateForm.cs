@@ -42,6 +42,10 @@ namespace Blockudoku
         // obstacles
         int obstacles_generated;
 
+        //needed for presenting the gained score information
+        int combo;
+        int penalty;
+
         public PlayStateForm()
         {
             InitializeComponent();
@@ -305,6 +309,7 @@ namespace Blockudoku
                             spaceX = e.Location.X - mino.StartX;
                             spaceY = e.Location.Y - mino.StartY;
                             selected.moveMino(e.Location.X, e.Location.Y, spaceX, spaceY);
+                            this.score_label.Text = "Score: " + score.ToString();
                             break;
                         }
                     }
@@ -359,8 +364,16 @@ namespace Blockudoku
                 selected.NotOnBoard = false;
                 selected.IsSelected = false;
                 net.putOnBoard(colS, rowS, selected);
-                score += net.updateBoard();
+                score += net.updateBoard(ref combo, ref penalty);
                 this.score_label.Text = "Score: " + score.ToString();
+                if(combo > 0)
+                {
+                    this.score_label.Text += "\n+ 9 X " + combo.ToString() + "\n+ " + (combo*combo).ToString();
+                }
+                if(penalty > 0)
+                {
+                    this.score_label.Text += "\n- " + penalty.ToString();
+                }
 
                 if (!minos[0].NotOnBoard && !minos[1].NotOnBoard && !minos[2].NotOnBoard)
                 {

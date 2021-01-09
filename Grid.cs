@@ -164,14 +164,14 @@ namespace Blockudoku
         /*
          * updates the board by removing and scoring full areas that were made in current move
          */
-        public int updateBoard()
+        public int updateBoard(ref int combo, ref int penalty)
         {
             bool full = true;
             int counter = 0;
             //counts how many full areas are done at once, so that it later multiplies the given score
-            int combo = 0;
+            combo = 0;
             //added up penalties that are given for every obstacle that the full area contains
-            int penalty = 0;
+            penalty = 0;
             int temp_pen = 0;
 
             //remembers which row/col/block is full
